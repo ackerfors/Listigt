@@ -1,0 +1,8 @@
+Ackerfors Crew
+Architecture and Design
+
+= Föreslagen preliminär arkitektur =
+Model View Controller (MVC): 
+- Model: Användare, artiklar, listor
+- View: GUI
+- Controller: Programlogik, kopplingar mellan objekt, regler.
