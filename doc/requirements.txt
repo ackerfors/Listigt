@@ -1,2 +1,208 @@
-Ackerfors Crew
 Requirements
+
+== Phase 1 ==
+
+= Requirement 1.1.1: Skapa en ny lista =
+
+Scenario: Skapa en ny lista
+
+Trigger: Användaren väljer att skapa en ny lista.
+Förutsättning: Användaren är inloggad i systemet.
+
+Standardfall
+Användaren fyller i namnet på listan och väljer sedan att skapa den. Systemet bekräftar att listan skapats.
+
+Undantagsfall
+1. Det finns redan en lista med samma namn:
+- En dialogruta presenteras för användaren där denne uppmanas byta namn på listan 
+2. Listnamnet innehåller otillåtna tecken:
+- En dialogruta presenteras för användaren där denne uppmanas byta namn på listan
+
+Eftertillstånd
+En tom lista presenteras för användaren.
+
+= Requirement 1.1.2: Lägg till ny artikel = 
+
+Scenario: Lägg till ny artikel
+
+Trigger: Användaren väljer att lägga till en viss kvantitet av en artikel
+Förutsättning: Den lista som användaren vill lägga till artikeln till existerar
+
+Standardfall
+Användaren fyller i namnet på artikeln och önskad kvantitet. Användaren beskriver artikeln med valfritt antal ord (max 100 ord), men detta är ej obligatoriskt. Användaren väljer sedan en lista som artikeln ska tillhöra. Systemet bekräftar att artikeln har adderats till den önskade listan.
+
+Undantagsfall
+1. Artikelnamnet existerar redan:
+- Användaren får upp en dialogruta som talar om att artikeln redan existerar. Användaren väljer om denna vill öka kvantiteten på den existerande artikeln, byta namn på artikeln eller om den vill avbryta. 
+2. Artikelnamnet innehåller otillåtna tecken
+- En dialogruta presenteras för användaren där denne uppmanas byta namn på artikeln
+
+Eftertillstånd
+Artikeln och önskad kvantitet är synlig längst ner i den lista som användaren valde att lägga till artikeln i.
+
+= Requirement 1.1.3: Lägg till ny artikel inifrån lista =
+
+Scenario: Lägg till ny artikel inifrån lista
+
+Trigger: Användaren väljer att lägga till en viss kvantitet av en artikel i den lista där användaren befinner sig.
+Förutsättning: Den lista som användaren vill lägga till artikeln till existerar
+
+Standardfall
+Användaren fyller i namnet på artikeln och önskad kvantitet. Användaren beskriver artikeln med valfritt antal ord (max 100 ord), men detta är ej obligatoriskt. Systemet bekräftar att artikeln har adderats till den listan användaren befinner sig i.
+
+Undantagsfall
+1. Artikelnamnet existerar redan:
+- Användaren får upp en dialogruta som talar om att artikeln redan existerar. Användaren väljer om denna vill öka kvantiteten på den existerande artikeln, byta namn på artikeln eller om den vill avbryta. 
+2. Artikelnamnet innehåller otillåtna tecken
+- En dialogruta presenteras för användaren där denne uppmanas byta namn på artikeln
+
+Eftertillstånd
+Artikeln och önskad kvantitet är synlig längst ner i den lista som användaren befinner sig i.
+
+= Requirement 1.2: Checka av artikel =
+
+Scenario: Checka av artikel
+
+Trigger: Användaren markerar en artikel på listan som bokad/avklarad.  
+Förutsättning: Artikeln existerar och har inte checkats av tidigare.
+
+Standardfall
+Användaren markerar den artikel som den vill checka av och gör detta. Systemet bekräftar att artikeln är avcheckad.
+Undantagsfall
+
+
+Eftertillstånd
+Artikeln överstryks/markeras i listan så att den särskiljs från icke checkade artiklar.
+
+= Requirement 1.3.1: Byta namn på lista =
+
+Scenario: Byta namn på lista
+
+Trigger: Användaren markerar en lista och väljer att byta namn på den
+Förutsättning: Listan existerar
+Standardfall
+
+Användaren markerar den lista som denne önskar byta namn på, väljer funktionen byt namn, fyller i ett nytt namn och sparar ändringen. Systemet bekräftar att ändringen sparats och uppdaterar listans namn. 
+
+Undantagsfall
+1. Det finns redan en lista med samma namn:
+- En dialogruta presenteras för användaren där denne uppmanas byta namn på listan 
+2. Listnamnet innehåller otillåtna tecken:
+- En dialogruta presenteras för användaren där denne uppmanas byta namn på listan
+
+Eftertillstånd
+All data i ursprungslistan finns kvar, men listan har nu ett nytt namn.
+
+= Requirement 1.3.2: Byta namn på artikel =
+
+Scenario: Byta namn på artikel
+
+Trigger: Användaren markerar en artikel och väljer att byta namn på den
+Förutsättning: Artikeln existerar
+Standardfall
+
+Användaren markerar den artikel som denne önskar byta namn på, väljer funktionen byt namn, fyller i ett nytt namn och sparar ändringen. Systemet bekräftar att ändringen sparats och uppdaterar artikelns namn. 
+
+Undantagsfall
+1. Artikelnamnet existerar redan:
+- Användaren får upp en dialogruta som talar om att en artikel med detta namn redan existerar. Användaren väljer om denna vill öka kvantiteten på den existerande artikeln, byta namn på artikeln eller om den vill avbryta. 
+2. Artikelnamnet innehåller otillåtna tecken
+- En dialogruta presenteras för användaren där denne uppmanas välja ett annat namn på artikeln
+
+Eftertillstånd
+All data gällande artikeln finns kvar t.ex kvantitet och ordningen i listan, men artikeln har nu ett nytt namn.
+
+= Requirement 1.4.1: Ange kvantitet för en artikel = 
+
+Scenario: Ange kvantitet föe en artikel
+
+Trigger: Användaren markerar en artikel och väljer att ange kvantitet
+Förutsättning: Artikeln existerar
+
+Standardfall
+Användaren markerar den artikel som denne önskar ange kvantitet på, väljer funktionen ange kvantitet, fyller i en kvantitet och sparar ändringen. Systemet bekräftar att ändringen sparats och uppdaterar artikelns kvantitet. 
+
+Undantagsfall
+1. Kvantiteten existerar redan:
+- Användaren får upp en dialogruta som talar om att en artikel med denna kvantitet redan existerar. Användaren väljer om denna vill öka/minska kvantiteten på den artikeln, byta namn på artikeln eller om den vill avbryta. 
+2. Den angivna kvantiteten innehåller otillåtna tecken
+- En dialogruta presenteras för användaren där denne uppmanas välja en annan kvantitet pga av att de angivna tecknena var otillåtna.  
+
+Eftertillstånd
+All data gällande artikeln finns kvar t.ex namn och ordningen i listan, men artikeln har nu en kvantitet. 
+
+
+= Requirement 1.4.2: Ändra kvantitet för en artikel = 
+
+Scenario: Ändra kvantitet för en artikel
+
+Trigger: Användaren markerar en artikel och väljer att ändakvantitet
+Förutsättning: Artikeln existerar
+
+Standardfall
+Användaren markerar den artikel som denne önskar byta kvantitet på, väljer funktionen byt kvantitet, fyller i en ny kvantitet och sparar ändringen. Systemet bekräftar att ändringen sparats och uppdaterar artikelns kvantitet. 
+
+Undantagsfall
+1. Kvantiteten existerar redan:
+- Användaren får upp en dialogruta som talar om att en artikel med denna kvantitet redan existerar. Användaren väljer om denna vill öka/minska kvantiteten på den artikeln, byta namn på artikeln eller om den vill avbryta. 
+2. Den angivna kvantiteten innehåller otillåtna tecken
+- En dialogruta presenteras för användaren där denne uppmanas välja en annan kvantitet pga av att de angivna tecknena var otillåtna.  
+
+Eftertillstånd
+All data gällande artikeln finns kvar t.ex namn och ordningen i listan, men artikeln har nu en ny kvantitet. 
+
+== Phase 2 ==
+
+= Requirement 2.1.1: Byta ordning på listor =
+
+Scenario: Byta ordning på listor
+
+Trigger: Användaren markerar en lista och väljer att förändra listans plast i ordningen av listor
+Förutsättning: Listan existerar, det finns fler listor vilket gör ordningen relevant.
+
+Standardfall
+Användaren markerar den lista som denne önskar byta plats på, väljer en ny plats och sparar ändringen. Systemet bekräftar att ändringen sparats och uppdaterar ordningen på listorna. 
+
+Undantagsfall
+1. Användaren ger listan samma plats som innan förändringen initierades. 
+- Användaren får upp en dialogruta som talar om att en artikel med detta namn redan existerar. Användaren väljer om denna vill öka kvantiteten på den existerande artikeln, byta namn på artikeln eller om den vill avbryta. 
+2. Artikelnamnet innehåller otillåtna tecken
+- En dialogruta presenteras för användaren där denne uppmanas välja ett annat namn på artikeln
+
+Eftertillstånd
+All data gällande artikeln finns kvar t.ex kvantitet och ordningen i listan, men artikeln har nu ett nytt namn.
+
+= Requirement 2.1.2: Ändra prioritetsordning på artiklar i en lista =
+
+Scenario: Ändra prioritetsordning på en artikel
+
+Trigger: Användaren markerar en artikel och väljer att förändra artikelns prioritetsordning i listan som artikeln tillhör
+Förutsättning: Listan existerar, artikeln existerar, det finns fler artiklar vilket gör prioriteringen relevant.
+
+Standardfall
+Användaren markerar den artikel som denne önskar byta prioritering på, väljer en ny plats i prioriteringsordningen och sparar ändringen. Systemet bekräftar att ändringen sparats och uppdaterar artikelns prioritering. 
+
+Undantagsfall
+1. Användaren ger artikeln samma prioritering som innan förändringen initierades. 
+- Användaren får upp en dialogruta som talar om att ingen ändring har gjorts 
+2. Prioriteringsnummret som angivits är högre än det existerande antalet artiklar i listan
+- En dialogruta presenteras för användaren att en otillåten prioritering angivits och att inga ändringar kommer göras. Artikeln erhåller samma prioriteringsordning som innan ändringen.
+
+Eftertillstånd
+Artikeln presenteras för användaren i listan med den nya prioriteringen
+
+= Requirement 2.2: Lägga till en webb-länk på artikel =
+
+Scenario: Lägga till en webb-länk på artikel
+
+Trigger: Användaren markerar en artikel och väljer att addera en webb-länk
+Förutsättning: Listan existerar och artikeln existerar.
+
+Standardfall
+Användaren markerar den artikel som denne önskar lägga till en webb-länk och klistrar in en webb-länk. Systemet bekräftar att ändringen sparats och uppdaterar artikelinformationen. 
+
+Undantagsfall
+Inga undantagsfall förekommer eftersom de enda fel som kan inträffa är om en felaktig länk har klistrats in. 
+
+Eftertillstånd
+Artikeln innehåller nu information i form av en inklistrad länk som kan tryckas på.
