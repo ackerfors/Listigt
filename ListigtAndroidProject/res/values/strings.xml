@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, ListigtAndroidProjectActivity!</string>
-    <string name="app_name">ListigtAndroidProject</string>
-
+    <string name="app_name">Listigt</string>
+    <string name="no_content">No Content So Far</string>
+    <string name="menu_insert_list">Add List</string>
+    <string name="menu_insert_item">Add Item</string>
+    
 </resources>
