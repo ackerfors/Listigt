@@ -9,5 +9,4 @@ public class ListigtDbAdapter {
 	public void open(){
 		//TODO Create this method
 	}
-
 }

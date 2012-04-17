@@ -60,5 +60,7 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     }
     private void createList(){
     	//TODO Create this method
+    	
+    	String test = "Test";
     }
 }
