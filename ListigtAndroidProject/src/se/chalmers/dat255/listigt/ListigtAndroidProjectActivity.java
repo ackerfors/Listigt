@@ -56,7 +56,7 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     }
     
     private void fillData(){
-    	//TODO Create this method that is used to fetch data from DB and load it onto our ListView
+    	String test2 = "test2";//TODO Create this method that is used to fetch data from DB and load it onto our ListView
     }
     private void createList(){
     	//TODO Create this method
