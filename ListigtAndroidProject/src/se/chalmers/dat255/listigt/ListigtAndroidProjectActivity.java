@@ -19,6 +19,7 @@
 package se.chalmers.dat255.listigt;
 
 import android.app.ListActivity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ import android.view.MenuItem;
 public class ListigtAndroidProjectActivity extends ListActivity {
     private ListsDbAdapter listsDbAdapter;//Creates a new NotesDbAdapter-object used to access the database
     public static final int INSERT_LIST_ID = Menu.FIRST;
-
+    private Cursor listCursor;
 
     /** Called when the activity is first created. */
     @Override
@@ -57,6 +58,7 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     
     private void fillData(){
     	//TODO Create this method that is used to fetch data from DB and load it onto our ListView
+    	//listCursor = dbadapter.fetchAllNotes();
     }
     private void createList(){
     	String hej = "Hej!";
