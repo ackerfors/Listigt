@@ -62,5 +62,6 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     }
     private void createList(){
     	String hej = "Hej!";
+    	//EN ny kommentar
     }
 }
