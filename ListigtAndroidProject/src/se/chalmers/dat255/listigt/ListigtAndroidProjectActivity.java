@@ -24,7 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class ListigtAndroidProjectActivity extends ListActivity {
-    private ListigtDbAdapter dbadapter;//Creates a new NotesDbAdapter-object used to access the database
+    private ListsDbAdapter listsDbAdapter;//Creates a new NotesDbAdapter-object used to access the database
     public static final int INSERT_LIST_ID = Menu.FIRST;
 
 
@@ -33,8 +33,8 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main); //Sets the layout to the one we specified in res/layout/notepad_list.xlm
-        dbadapter = new ListigtDbAdapter(this);//Construct the database-adapter
-        dbadapter.open();//open or create the database
+        listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
+        listsDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
 
@@ -59,6 +59,6 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     	//TODO Create this method that is used to fetch data from DB and load it onto our ListView
     }
     private void createList(){
-    	//TODO Create this method
+    	String hej = "Hej!";
     }
 }
