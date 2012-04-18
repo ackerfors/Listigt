@@ -19,23 +19,26 @@
 package se.chalmers.dat255.listigt;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class ListigtAndroidProjectActivity extends ListActivity {
-    private ListsDbAdapter listsDbAdapter;//Creates a new NotesDbAdapter-object used to access the database
+    private ListsDbAdapter myListsDbAdapter;//Creates a new Adapter-object used to access the database
     public static final int INSERT_LIST_ID = Menu.FIRST;
+	private static final int ACTIVITY_CREATE = 0;
+	private static final int ACTIVITY_EDIT = 1;
     private Cursor listCursor;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main); //Sets the layout to the one we specified in res/layout/notepad_list.xlm
-        listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
-        listsDbAdapter.open();//open or create the database
+        setContentView(R.layout.main); //Sets the layout to the one we specified in res/layout/listOverview.xml
+        myListsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
+        myListsDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
 
@@ -58,11 +61,38 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     
     private void fillData(){
     	//TODO Create this method that is used to fetch data from DB and load it onto our ListView
-    	//listCursor = dbadapter.fetchAllNotes();
-    	String test = "Testar konflikter";
+    	
+    	
     }
+    
+    /** Called to create a new list */
     private void createList(){
-    	String hej = "Hej!";
-    	//EN ny kommentar
+    	Intent i = new Intent(this, ListEditCreate.class);
+    	startActivityForResult(i, ACTIVITY_CREATE);	
     }
+    
+    @Override
+    /**This method runs when an activity that we started finishes and returns information*/
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	super.onActivityResult(requestCode, resultCode, intent);
+    	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
+
+    	switch(requestCode) {
+    	case ACTIVITY_CREATE:
+    	    String title = extras.getString(ListsDbAdapter.KEY_TITLE);
+    	    myListsDbAdapter.createList(title);
+    	    fillData();
+    	    break;
+    	case ACTIVITY_EDIT:
+    	    Long currentRowId = extras.getLong(ListsDbAdapter.KEY_ROWID);
+    	    if (currentRowId != null) {
+    	        String updateTitle = extras.getString(ListsDbAdapter.KEY_TITLE);
+    	        myListsDbAdapter.updateList(currentRowId, updateTitle);
+    	    }
+    	    fillData();
+    	    break;
+    	}
+    }
+    
+ 
 }

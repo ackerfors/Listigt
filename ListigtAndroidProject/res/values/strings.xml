@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Listigt</string>
+    <string name="app_name">Listigt v0.1</string>
     <string name="no_content">No Content So Far</string>
     <string name="menu_insert_list">Add List</string>
     <string name="menu_insert_item">Add Item</string>
+    <string name="listEditCreateTitle">Edit or create list</string>
+    <string name="title">Title</string>
+    <string name="confirm">Confirm</string>
     
 </resources>
