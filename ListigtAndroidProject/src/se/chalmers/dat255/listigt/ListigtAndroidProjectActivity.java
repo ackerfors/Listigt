@@ -58,7 +58,7 @@ public class ListigtAndroidProjectActivity extends ListActivity {
     
     private void fillData(){
     	//TODO Create this method that is used to fetch data from DB and load it onto our ListView
-    	listCursor = dbadapter.fetchAllNotes();
+    	//listCursor = dbadapter.fetchAllNotes();
     }
     private void createList(){
     	String hej = "Hej!";
