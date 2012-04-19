@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ListEditCreate"></activity>
+        <activity android:name="ItemView"></activity>
     </application>
 
 </manifest>

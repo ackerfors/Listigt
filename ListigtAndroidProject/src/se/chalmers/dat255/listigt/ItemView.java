@@ -24,6 +24,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class ItemView extends ListActivity {
@@ -39,7 +41,7 @@ public class ItemView extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main); //Sets the layout to the one we specified in res/layout/listOverview.xml
+        setContentView(R.layout.main_items); //Sets the layout to the one we specified in res/layout/listOverview.xml
         itemDbAdapter = new ItemsDbAdapter(this);//Construct the database-adapter
         itemDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
@@ -76,7 +78,7 @@ public class ItemView extends ListActivity {
         
         // Creates an array adapter and set it to display using our row
         SimpleCursorAdapter notes =
-            new SimpleCursorAdapter(this, R.layout.list_row, c, from, to);
+            new SimpleCursorAdapter(this, R.layout.items_row, c, from, to);
         setListAdapter(notes);
     }
     
@@ -121,10 +123,10 @@ public class ItemView extends ListActivity {
     }
     
     @Override
-    protected void onListItemClick(ItemView l, View v, int position, long id) {
+    protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, NotesView.class);
-        i.putExtra(NotesDbAdapter.KEY_ROWID, id);
+        Intent i = new Intent(this, ItemEditCreate.class);
+        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_EDIT);
     }
 }

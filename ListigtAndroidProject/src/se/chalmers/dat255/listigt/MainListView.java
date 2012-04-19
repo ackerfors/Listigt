@@ -44,7 +44,7 @@ public class MainListView extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main); //Sets the layout to the one we specified in res/layout/listOverview.xml
+        setContentView(R.layout.main_list); //Sets the layout to the one we specified in res/layout/listOverview.xml
         listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
         listsDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
@@ -95,6 +95,14 @@ public class MainListView extends ListActivity {
     }
     
     @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Intent i = new Intent(this, ItemView.class);
+        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
+        startActivityForResult(i, ACTIVITY_EDIT);
+    }
+    
+    @Override
     /**This method runs when an activity that we started finishes and returns information
      * 
      * @param requestCode 
@@ -104,7 +112,6 @@ public class MainListView extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
-
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
     	    String title = extras.getString(ListsDbAdapter.KEY_TITLE);
@@ -122,11 +129,5 @@ public class MainListView extends ListActivity {
     	}
     }
     
-    @Override
-    protected void onListItemClick(MainListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, ItemView.class);
-        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_EDIT);
-    }
+
 }
