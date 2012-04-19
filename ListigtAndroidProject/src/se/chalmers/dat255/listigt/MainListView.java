@@ -22,11 +22,16 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class ListView extends ListActivity {
+public class MainListView extends ListActivity {
     private ListsDbAdapter listsDbAdapter;//Creates a new Adapter-object used to access the database
     public static final int INSERT_LIST_ID = Menu.FIRST;
 	private static final int ACTIVITY_CREATE = 0;
@@ -115,5 +120,13 @@ public class ListView extends ListActivity {
     	    fillData();
     	    break;
     	}
+    }
+    
+    @Override
+    protected void onListItemClick(MainListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Intent i = new Intent(this, ItemView.class);
+        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
+        startActivityForResult(i, ACTIVITY_EDIT);
     }
 }

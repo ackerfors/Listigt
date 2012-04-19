@@ -18,7 +18,7 @@ import android.database.SQLException;
 public class ItemsDbAdapter extends AbstractListigtDbAdapter {
 	public static final String KEY_TITLE = "itemTitle";
     public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_WEIGHT = "weight";
+    //public static final String KEY_WEIGHT = "weight";
     public static final String KEY_BOOKED = "booked";
     public static final String KEY_PARENT = "parent";
     public static final String KEY_ROWID = "_id";
@@ -45,12 +45,12 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
      * @param parent
      * @return rowId or -1 if failed
      */
-    public long createList(String title, String description, int weight, int booked, int parent) {
+    public long createItem(String title, String description, int parent) {
     	ContentValues argumentValues = new ContentValues();
     	argumentValues.put(KEY_TITLE,title);
     	argumentValues.put(KEY_DESCRIPTION,description);
-    	argumentValues.put(KEY_WEIGHT, weight);
-    	argumentValues.put(KEY_BOOKED, booked);
+    	//argumentValues.put(KEY_WEIGHT, weight);
+    	argumentValues.put(KEY_BOOKED, 0);
     	argumentValues.put(KEY_PARENT, parent);
     	
     	return sqlLiteDb.insert(DATABASE_TABLE, null, argumentValues);
@@ -74,7 +74,7 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
      */
     public Cursor fetchAllItems() {
     	return sqlLiteDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-    			KEY_DESCRIPTION, KEY_WEIGHT, KEY_BOOKED, KEY_PARENT}, null, null, null, null, null);
+    			KEY_DESCRIPTION, KEY_BOOKED, KEY_PARENT}, null, null, null, null, null);
     }
 
     /**
@@ -87,11 +87,29 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     public Cursor fetchItem(long rowId) throws SQLException {
         Cursor myCursor =
         	sqlLiteDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                    KEY_TITLE, KEY_DESCRIPTION, KEY_WEIGHT, KEY_BOOKED, KEY_PARENT}, KEY_ROWID + "=" + rowId, null,
+                    KEY_TITLE, KEY_DESCRIPTION, KEY_BOOKED, KEY_PARENT}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (myCursor != null) {
         	myCursor.moveToFirst();
         }
         return myCursor;
+    }
+    
+    /**
+     * Update the note using the details provided. The note to be updated is
+     * specified using the rowId, and it is altered to use the title and body
+     * values passed in
+     * 
+     * @param rowId id of note to update
+     * @param title value to set note title to
+     * @param body value to set note body to
+     * @return true if the note was successfully updated, false otherwise
+     */
+    public boolean updateItem(long rowId, String title, String description) {
+        ContentValues argumentValues = new ContentValues();
+        argumentValues.put(KEY_TITLE, title);
+        argumentValues.put(KEY_TITLE, description);
+
+        return sqlLiteDb.update(DATABASE_TABLE, argumentValues, KEY_ROWID + "=" + rowId, null) > 0;
     }
 }
