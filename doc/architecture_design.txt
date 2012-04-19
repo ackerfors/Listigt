@@ -3,6 +3,6 @@ Architecture and Design
 
 = Föreslagen preliminär arkitektur =
 Model View Controller (MVC): 
-- Model: Användare, artiklar, listor
-- View: GUI
-- Controller: Programlogik, kopplingar mellan objekt, regler.
+- Model: Här kommer eventuella uträkningar ligga tillsammans med lagrandet av listartiklar.
+- View: Här programmeras de grafiska komponenterna för att interagera med användaren. Utseendet av själva listan, eventuella knappar, input-fält etc och hur dessa ska se ut och uppträda på skärmen.
+- Controller: När något händer i viewn responderar controllern genom att t.ex köra metoder i model. Tar han dom användarens data-input och bearbetar på rätt sätt. Det kan vara att man stryker en artikel på listan så responderar controllern genom att köra en metod som får viewn att ändra sig (texten blir överstruken tex).
