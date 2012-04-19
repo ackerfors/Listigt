@@ -17,8 +17,8 @@ import android.database.SQLException;
  */
 public class ListsDbAdapter extends AbstractListigtDbAdapter {
 	public static final String KEY_TITLE = "listTitle";
-    public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_WEIGHT = "weight";
+    //public static final String KEY_DESCRIPTION = "description";
+    //public static final String KEY_WEIGHT = "weight";
     public static final String KEY_ROWID = "_id";
 
     private static final String DATABASE_TABLE = "lists";
@@ -41,11 +41,11 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
      * @param weight
      * @return rowId or -1 if failed
      */
-    public long createList(String title, String description, int weight) {
+    public long createList(String title) {
     	ContentValues argumentValues = new ContentValues();
+    	
     	argumentValues.put(KEY_TITLE,title);
-    	argumentValues.put(KEY_DESCRIPTION,description);
-    	argumentValues.put(KEY_WEIGHT, weight);
+    	//argumentValues.put(KEY_WEIGHT, weight);
     	
     	return sqlLiteDb.insert(DATABASE_TABLE, null, argumentValues);
     }
@@ -68,7 +68,7 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
      */
     public Cursor fetchAllLists() {
     	return sqlLiteDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-    			KEY_DESCRIPTION, KEY_WEIGHT}, null, null, null, null, null);
+    			}, null, null, null, null, null);
     }
 
     /**
@@ -81,11 +81,29 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
     public Cursor fetchList(long rowId) throws SQLException {
         Cursor myCursor =
         	sqlLiteDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                    KEY_TITLE, KEY_DESCRIPTION, KEY_WEIGHT}, KEY_ROWID + "=" + rowId, null,
+                    KEY_TITLE}, KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (myCursor != null) {
         	myCursor.moveToFirst();
         }
         return myCursor;
     }
+    
+    /**
+     * Update the note using the details provided. The note to be updated is
+     * specified using the rowId, and it is altered to use the title and body
+     * values passed in
+     * 
+     * @param rowId id of note to update
+     * @param title value to set note title to
+     * @param body value to set note body to
+     * @return true if the note was successfully updated, false otherwise
+     */
+    public boolean updateList(long rowId, String title) {
+        ContentValues argumentValues = new ContentValues();
+        argumentValues.put(KEY_TITLE, title);
+
+        return sqlLiteDb.update(DATABASE_TABLE, argumentValues, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
 }

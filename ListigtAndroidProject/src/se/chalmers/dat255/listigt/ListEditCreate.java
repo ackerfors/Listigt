@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ListEditCreate extends Activity {
-	EditText editableListTitle;//creates an editable textbox
+	EditText editableListTitle; //creates an editable textbox
 	Long currentRowId;
 	
 	@Override
@@ -16,8 +16,8 @@ public class ListEditCreate extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_editcreate);//use the layout defined in list_editcreate.xml
 		setTitle(R.string.listEditCreateTitle);//set the title for this activity
-		editableListTitle = (EditText) findViewById(R.id.listTitleField);//instantiate the Title-text field		
-		Button confirmButton = (Button) findViewById(R.id.confirmButton);//instantiate the confirm button
+		editableListTitle = (EditText) findViewById(R.id.listEditTitleField);//instantiate the Title-text field		
+		Button confirmButton = (Button)	 findViewById(R.id.confirmButton);//instantiate the confirm button
 		
 		currentRowId = null;
 		Bundle extras = getIntent().getExtras();
@@ -46,10 +46,7 @@ public class ListEditCreate extends Activity {
 		    	updateIntent.putExtras(bundle);//ship all the data stored in the bundle with the intent
 		    	setResult(RESULT_OK, updateIntent);//send the result back to the activity that started this activity
 		    	finish();
-
 		    }
-
 		});
 	}
-
 }

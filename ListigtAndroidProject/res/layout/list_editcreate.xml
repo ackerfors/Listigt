@@ -15,14 +15,17 @@
 			android:layout_height="wrap_content" 
 			android:text="@string/title" />
 		<EditText
-		    android:id="@+id/listTitleField" 
+		    android:id="@+id/listEditTitleField" 
 		  	android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:layout_weight="1"/>
 	</LinearLayout>
+
 	<Button
-	    android:id="@+id/confirmButton" 
-	  	android:text="@string/confirm"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
+	    android:id="@+id/confirmButton"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="@string/confirm" />
+
 </LinearLayout>
