@@ -58,7 +58,7 @@ public class ItemView extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()){//checks which MenuItem that was selected
     	case INSERT_LIST_ID://if the "Add List"-button was clicked
-    		createList();//then call internal method to create a new list
+    		createItem();//then call internal method to create a new list
     		return true;//and return true because the operation was successful
     	}
     	return super.onOptionsItemSelected(item);
@@ -74,7 +74,7 @@ public class ItemView extends ListActivity {
         startManagingCursor(c);
 
         String[] from = new String[] { ItemsDbAdapter.KEY_TITLE };
-        int[] to = new int[] { R.id.listRowTitle };
+        int[] to = new int[] { R.id.itemRowTitle };
         
         // Creates an array adapter and set it to display using our row
         SimpleCursorAdapter notes =
@@ -82,11 +82,11 @@ public class ItemView extends ListActivity {
         setListAdapter(notes);
     }
     
-    /** Called to create a new list 
+    /** Called to create a new item 
      * Adding more comments
      * 
      * */
-    private void createList(){
+    private void createItem(){
     	Intent i = new Intent(this, ListEditCreate.class);
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
