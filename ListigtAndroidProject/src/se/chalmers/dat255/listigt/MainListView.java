@@ -36,6 +36,7 @@ public class MainListView extends ListActivity {
     public static final int INSERT_LIST_ID = Menu.FIRST;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
+	private static final int ACTIVITY_GOTOITEMS = 2;
     private Cursor listCursor;
 
     /** Called when the activity is first created. 
@@ -85,21 +86,21 @@ public class MainListView extends ListActivity {
         setListAdapter(notes);
     }
     
-    /** Called to create a new list 
-     * Adding more comments
-     * 
-     * */
+    /** Called to create a new list */
     private void createList(){
     	Intent i = new Intent(this, ListEditCreate.class);
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
+    /**
+     * Called when someone clicks on a list
+     */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, ItemView.class);
         i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_EDIT);
+        startActivityForResult(i, ACTIVITY_GOTOITEMS);
     }
     
     @Override
@@ -126,6 +127,9 @@ public class MainListView extends ListActivity {
     	    }
     	    fillData();
     	    break;
+    	case ACTIVITY_GOTOITEMS:
+    		fillData();
+    		break;
     	}
     }
     

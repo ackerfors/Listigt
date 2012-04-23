@@ -41,7 +41,7 @@ public class ItemView extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_items); //Sets the layout to the one we specified in res/layout/listOverview.xml
+        setContentView(R.layout.main_items); //Sets the layout to the one we specified in res/layout/
         itemDbAdapter = new ItemsDbAdapter(this);//Construct the database-adapter
         itemDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
@@ -122,11 +122,21 @@ public class ItemView extends ListActivity {
     	}
     }
     
-    @Override
+   /*@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, ItemEditCreate.class);
         i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_EDIT);
+    }*/
+    
+    /**
+     * When the back-key is pressed we must return something to the activity
+     * that started this activity
+     */
+    @Override
+    public void onBackPressed() {
+    	setResult(RESULT_OK, new Intent()); //send the result back to the activity that started this activity
+    	finish();
     }
 }
