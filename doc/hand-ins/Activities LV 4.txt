@@ -1,0 +1,142 @@
+Beskrivning av Android-activities
+
+Appen Listigt innehåller sex olika activities som beskrivs som nedan:
+
+-----------------------------------------------------------------------------------------
+#1. Main activity
+Purpose:
+- Den första activitiyn som användaren kommer till
+- Presenterar de listor som användaren sedan tidigare skapat
+
+Buttons:
+Meny-knappen "Create list" 
+"Delete list" (om action 1.3 gjord)
+"Edit list" (om action 1.3 gjord)
+
+Actions:
+1.1 Då användaren trycker på en lista förpassas den till acticity #2 (List activity)
+1.2 Då användaren trycker på meny-knappen "Create list" förpassas den till acticity #4 (List editor)
+1.3 Då användaren trycker på en lista i ca två sekunder presenteras knapparna "Delete list" och "Edit list".
+1.4 Då användaren trycker på "Delete list" raderas listan och användaren återvänder till acticity #1 (Main activity)
+1.5 Då användaren trycker på "Edit list" förpassas den till acticity #4 (List editor)
+
+
+-----------------------------------------------------------------------------------------
+
+#2. List activity
+Purpose:
+- Presenterar vald lista med dess innehåll (artiklar)
+- Varje artikel är försedd med en status-ruta som anger om den är bokad eller ej
+
+Buttons:
+Meny-knappen "Add item" 
+Meny-knappen "Share list" 
+I status-rutan finns knappen "Book!" om artikeln inte är bokad
+I status-rutan finns knappen "Unbook!" om artikeln redan är bokad
+För varje artikel finns en knapp "Prioritize"
+
+Actions:
+2.1 Då användaren trycker på en artikel förpassas den till activity #3 (Item activity)
+2.2 Då användaren trycker på meny-knappen "Share list" förpassas den till activity #5 (Sharing activity)
+2.3 Då användaren trycker på meny-knappen "Add item" förpassas den till activity #6 (Item editor)   
+2.4 Då användaren trycker på knappen "Book!" markeras artikeln som bokad ("Booked") och knappen i status-rutan övergår till att vara knappen "Unbook!". Användaren är kvar i acticity #2 (List activity).
+2.5 Då användaren trycker på knappen "Unbook" markeras artikeln som bokad ("Book!") och knappen i status-rutan övergår till att vara knappen "Book!". Användaren är kvar i acticity #2 (List activity).
+2.6 Då användaren håller nere knappen "Prioritize" kan artikeln ifråga flyttas och placeras i önskad ordning relativt övriga artiklar i listan
+
+
+
+-----------------------------------------------------------------------------------------
+
+#3. Item activity
+Purpose:
+- Presenterar enskilda artiklar med namn och eventuell beskrivning
+
+Buttons:
+Meny-knappen "Edit item" för att ändra namn eller ändra artikelns beskrivning
+"Book!" (om artikeln inte är bokad)
+"Unbook!"  (om artikeln redan är bokad)
+"Delete" 
+
+Actions:
+3.1 Då användaren trycker på meny-knappen "Edit item" förpassas den till acticity #6 (Item editor)   
+3.2 Då användaren trycker på meny-knappen "Book!" markeras artikeln som bokad och knappen övergår till att vara knappen "Unbook!". Användaren är kvar i activity #3 (Item activity).
+3.3 Då användaren trycker på meny-knappen "Unbook!" markeras artikeln som bokad och knappen övergår till att vara knappen "Book!". Användaren är kvar i activity #3 (Item activity).
+3.4 Då användaren trycker på meny-knappen "Delete" raderas artikeln och användaren förpassas till activity #2 (List activity)
+
+
+
+-----------------------------------------------------------------------------------------
+
+#4 List editor
+Purpose:
+- Skapa en lista
+- Ändra namn på en lista
+- Radera en lista
+
+Fields:
+- "Title" där användaren måste namnge listan
+
+Buttons:
+- Meny-knappen "Confirm" 
+
+Cases:
+- Om activityn föregåtts av action 1.2: Titelfältet är tomt
+- Om activityn föregåtts av action 1.3: Titelfältet innehåller namnet på listan som valts att editeras
+
+Actions:
+Beroende på vilken action som föregåtts sker två olika händelser då användaren trycker på meny-knappen "Confirm": 
+4.1 Då användaren trycker på meny-knappen "Confirm" skapas listan och användaren förpassas till acticity #1 Main activity (om action 1.2 föregåtts)
+4.2 Då användaren trycker på meny-knappen "Confirm" ändras listans titel och användaren förpassas till activity #1 Main activity (om action 1.5 föregåtts)
+
+Exceptions:
+- Om ingen titel matats in i fältet Title är meny-knappen "Confirm" inaktiv
+
+
+-----------------------------------------------------------------------------------------
+
+#5 Sharing
+Purpose:
+- Dela lista
+
+Fields:
+- Mail
+- Message
+
+Buttons:
+- Meny-knappen "Share"
+- "+" (lägg till ny mottagare)
+
+Actions:
+5.1 Då användaren trycker på meny-knappen "Share" skickas listan till angiven mailadress (om fältet "Mail" innehåller en sådan) med meddelandet som matas in och användaren förpassas till activity #2 (List activity)
+5.2 Då användaren trycker på knappen "+" uppstår ytterligare ett fält "Mail" där användaren kan skriva in ytterligare mailadresser till de den önskar dela listan med.
+
+Exceptions:
+- Om ingen mailadress matats in i något fält "Mail" är knappen "Share" inaktiv
+- Om inget meddelande lämnats skickas listan utan meddelande
+- Om ett fält "Mail" saknar mailadress ska det bortses från. Dvs om det skrivits in mailadresser, men ett fält är tomt ska listan delas med de mailadresser som skrivits in. 
+
+
+
+-----------------------------------------------------------------------------------------
+
+#6 Item editor
+Purpose:
+- Skapa en artikel med namn och beskrivning
+- Ändra en artikels namn och beskrivning 
+
+Fields:
+- "Title", där namnet för artikeln eller listan matas in
+- "Description" där användaren kan ge ytterligare beskrivning på artikeln
+
+Buttons:
+- Meny-knappen "Confirm" 
+
+Actions:
+Beroende på vilken action som föregåtts sker två olika händelser då användaren trycker på meny-knappen "Confirm":
+6.1 Då användaren trycker på meny-knappen "Confirm" skapas artikeln (om föregående action är 2.3) och användaren förpassas till acticity #2 (List activity)
+6.2 Då användaren trycker på meny-knappen " Confirm" ändras artikeln (om föregående action är 3.1) och användaren förpassas till acticity #3 (Item activity)
+
+Exceptions:
+- Om fältet Title är tomt är meny-knappen "Confirm" inaktiv
+
+
