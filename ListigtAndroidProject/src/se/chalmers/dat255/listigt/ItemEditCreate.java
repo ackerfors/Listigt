@@ -8,26 +8,32 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ItemEditCreate extends Activity {
-	EditText editableListTitle; //creates an editable textbox
+	EditText editableItemTitle, editableItemDesc; //creates two editable textboxes
 	Long currentRowId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list_editcreate);//use the layout defined in list_editcreate.xml
-		setTitle(R.string.listEditCreateTitle);//set the title for this activity
-		editableListTitle = (EditText) findViewById(R.id.listEditTitleField);//instantiate the Title-text field		
+		setContentView(R.layout.item_editcreate);//use the layout defined in item_editcreate.xml
+		setTitle(R.string.itemEditCreateTitle);//set the title for this activity
+		editableItemTitle = (EditText) findViewById(R.id.itemEditTitleField);//instantiate the Title-text field	
+		editableItemDesc = (EditText) findViewById(R.id.itemEditDescField);
 		Button confirmButton = (Button)	 findViewById(R.id.confirmButton);//instantiate the confirm button
 		
 		currentRowId = null;
 		Bundle extras = getIntent().getExtras();
 		//Check if the intent that started this activity brought any extra stuff
 		if(extras!=null){
-			 String title = extras.getString(ListsDbAdapter.KEY_TITLE);
-			 currentRowId = extras.getLong(ListsDbAdapter.KEY_ROWID);
+			 String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
+			 String desc = (String) extras.get(ItemsDbAdapter.KEY_DESCRIPTION);
+			 currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);
 			 
 			 if (title != null) {
-			        editableListTitle.setText(title);//if we're editing an existing list, show its Title
+			        editableItemTitle.setText(title);//if we're editing an existing item, show its Title
+			    }
+			 
+			 if (desc != null) {
+			        editableItemDesc.setText(desc);//if we're editing an existing item, show its description
 			    }
 		}
 		
@@ -37,9 +43,10 @@ public class ItemEditCreate extends Activity {
 		    public void onClick(View view) {
 		    	Bundle bundle = new Bundle();
 
-		    	bundle.putString(ListsDbAdapter.KEY_TITLE, editableListTitle.getText().toString());
+		    	bundle.putString(ItemsDbAdapter.KEY_TITLE, editableItemTitle.getText().toString());
+		    	bundle.putString(ItemsDbAdapter.KEY_DESCRIPTION, editableItemDesc.getText().toString());
 		    	if (currentRowId != null) {
-		    	    bundle.putLong(ListsDbAdapter.KEY_ROWID, currentRowId);
+		    	    bundle.putLong(ItemsDbAdapter.KEY_ROWID, currentRowId);
 		    	}
 		    	
 		    	Intent updateIntent = new Intent();

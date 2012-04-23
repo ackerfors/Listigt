@@ -45,7 +45,7 @@ public class MainListView extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_list); //Sets the layout to the one we specified in res/layout/listOverview.xml
+        setContentView(R.layout.main_list); //Sets the layout to the one we specified in res/layout
         listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
         listsDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView

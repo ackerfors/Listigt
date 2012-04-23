@@ -30,7 +30,7 @@ import android.widget.SimpleCursorAdapter;
 
 public class ItemView extends ListActivity {
     private ItemsDbAdapter itemDbAdapter;//Creates a new Adapter-object used to access the database
-    public static final int INSERT_LIST_ID = Menu.FIRST;
+    public static final int INSERT_ITEM_ID = Menu.FIRST;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
     private Cursor listCursor;
@@ -50,15 +50,15 @@ public class ItemView extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_LIST_ID, 0, R.string.menu_insert_list);
+        menu.add(0, INSERT_ITEM_ID, 0, R.string.menu_insert_item);
         return result;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()){//checks which MenuItem that was selected
-    	case INSERT_LIST_ID://if the "Add List"-button was clicked
-    		createItem();//then call internal method to create a new list
+    	case INSERT_ITEM_ID://if the "Add Item"-button was clicked
+    		createItem();//then call internal method to create a new item
     		return true;//and return true because the operation was successful
     	}
     	return super.onOptionsItemSelected(item);
@@ -87,7 +87,7 @@ public class ItemView extends ListActivity {
      * 
      * */
     private void createItem(){
-    	Intent i = new Intent(this, ListEditCreate.class);
+    	Intent i = new Intent(this, ItemEditCreate.class);
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
