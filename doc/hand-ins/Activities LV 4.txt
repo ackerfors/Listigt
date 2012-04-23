@@ -12,6 +12,7 @@ Buttons:
 Meny-knappen "Create list" 
 "Delete list" (om action 1.3 gjord)
 "Edit list" (om action 1.3 gjord)
+"About" 
 
 Actions:
 1.1 Då användaren trycker på en lista förpassas den till acticity #2 (List activity)
@@ -19,6 +20,7 @@ Actions:
 1.3 Då användaren trycker på en lista i ca två sekunder presenteras knapparna "Delete list" och "Edit list".
 1.4 Då användaren trycker på "Delete list" raderas listan och användaren återvänder till acticity #1 (Main activity)
 1.5 Då användaren trycker på "Edit list" förpassas den till acticity #4 (List editor)
+1.6 Då användaren trycker på "About" visas en dialogruta som anger versionen för programmet och annat relevant information om programmet
 
 
 -----------------------------------------------------------------------------------------
