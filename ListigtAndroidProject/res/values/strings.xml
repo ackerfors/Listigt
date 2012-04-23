@@ -6,7 +6,9 @@
     <string name="menu_insert_list">Add List</string>
     <string name="menu_insert_item">Add Item</string>
     <string name="listEditCreateTitle">Edit or create list</string>
+    <string name="itemEditCreateTitle">Edit or create item</string>
     <string name="title">Title</string>
     <string name="confirm">Confirm</string>
+    <string name="description">Description</string>
     
 </resources>
