@@ -33,7 +33,7 @@ public class MainItemActivity extends ListActivity {
     public static final int INSERT_ITEM_ID = Menu.FIRST;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
-    private Cursor listCursor;
+    private Cursor itemCursor;
 
     /** Called when the activity is first created. 
      * 
@@ -70,16 +70,16 @@ public class MainItemActivity extends ListActivity {
      */
     private void fillData(){
     	// Get all of the notes from the database and create the item list
-        Cursor c = itemDbAdapter.fetchAllItems();
-        startManagingCursor(c);
+        itemCursor = itemDbAdapter.fetchAllItems();
+        startManagingCursor(itemCursor);
 
         String[] from = new String[] { ItemsDbAdapter.KEY_TITLE };
         int[] to = new int[] { R.id.itemRowTitle };
         
         // Creates an array adapter and set it to display using our row
-        SimpleCursorAdapter notes =
-            new SimpleCursorAdapter(this, R.layout.items_row, c, from, to);
-        setListAdapter(notes);
+        SimpleCursorAdapter items =
+            new SimpleCursorAdapter(this, R.layout.items_row, itemCursor, from, to);
+        setListAdapter(items);
     }
     
     /** Called to create a new item 

@@ -96,9 +96,9 @@ public class MainListActivity extends ListActivity {
         int[] to = new int[] { R.id.listRowTitle };
         
         // Creates an array adapter and set it to display using our row
-        SimpleCursorAdapter notes =
+        SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
-        setListAdapter(notes);
+        setListAdapter(lists);
     }
     
     /** Called to create a new list */
