@@ -23,12 +23,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 public class MainItemActivity extends ListActivity {
     private ItemsDbAdapter itemDbAdapter;//Creates a new Adapter-object used to access the database
@@ -37,6 +38,7 @@ public class MainItemActivity extends ListActivity {
     private static final int EDIT_ID = Menu.FIRST + 2;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
+	private static final int ACTIVITY_DETAILS = 2;
     private Cursor itemCursor;
 
     /** Called when the activity is first created. 
@@ -48,6 +50,7 @@ public class MainItemActivity extends ListActivity {
         setContentView(R.layout.main_items); //Sets the layout to the one we specified in res/layout/
         itemDbAdapter = new ItemsDbAdapter(this);//Construct the database-adapter
         itemDbAdapter.open();//open or create the database
+        registerForContextMenu(getListView());
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
 
@@ -136,16 +139,19 @@ public class MainItemActivity extends ListActivity {
     	    }
     	    fillData();
     	    break;
+    	case ACTIVITY_DETAILS:
+    		fillData();
+    		break;
     	}
     }
     
-   /*@Override
+   @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, ItemEditCreate.class);
+        Intent i = new Intent(this, ItemDetailsActivity.class);
         i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_EDIT);
-    }*/
+        startActivityForResult(i, ACTIVITY_DETAILS);
+    }
     
     /**
      * Called when an option from the context-menu has been clicked
@@ -166,6 +172,8 @@ public class MainItemActivity extends ListActivity {
         	i.putExtra(ItemsDbAdapter.KEY_ROWID, info2.id);
         	i.putExtra(ItemsDbAdapter.KEY_TITLE, c.getString(
         	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE)));
+        	i.putExtra(ItemsDbAdapter.KEY_DESCRIPTION, c.getString(
+        	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_DESCRIPTION)));
         	startActivityForResult(i, ACTIVITY_EDIT);
             return true;
         }

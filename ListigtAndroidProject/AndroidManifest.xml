@@ -21,6 +21,7 @@
         <activity android:name=".ListEditor"></activity>
         <activity android:name=".MainItemActivity"></activity>
         <activity android:name=".ItemEditor"></activity>
+        <activity android:name=".ItemDetailsActivity"></activity>
     </application>
 
 </manifest>
