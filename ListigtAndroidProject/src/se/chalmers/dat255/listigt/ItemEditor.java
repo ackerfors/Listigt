@@ -56,4 +56,15 @@ public class ItemEditor extends Activity {
 		    }
 		});
 	}
+	
+	/**
+      /**
+     * When the back-key is pressed we simply return to the previous activity
+     * with the same Intent (no data changed)
+     */
+    @Override
+    public void onBackPressed() {
+    	setResult(RESULT_OK, getIntent());
+    	finish();
+    }
 }

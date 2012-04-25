@@ -155,8 +155,10 @@ public class MainListActivity extends ListActivity {
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
-    	    String title = extras.getString(ListsDbAdapter.KEY_TITLE);
-    	    listsDbAdapter.createList(title);
+    	    if(extras != null){
+	    		String title = extras.getString(ListsDbAdapter.KEY_TITLE);
+	    	    listsDbAdapter.createList(title);
+    	    }
     	    fillData();
     	    break;
     	case ACTIVITY_EDIT:
@@ -172,6 +174,4 @@ public class MainListActivity extends ListActivity {
     		break;
     	}
     }
-    
-
 }

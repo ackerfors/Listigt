@@ -104,10 +104,12 @@ public class MainItemActivity extends ListActivity {
 
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
-    	    String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
-    	    String description = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
-    	    int parent = extras.getInt(ItemsDbAdapter.KEY_PARENT);
-    	    itemDbAdapter.createItem(title, description, parent);
+    	    if(extras != null){
+	    		String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
+	    	    String description = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
+	    	    int parent = extras.getInt(ItemsDbAdapter.KEY_PARENT);
+	    	    itemDbAdapter.createItem(title, description, parent);
+    	    }
     	    fillData();
     	    break;
     	case ACTIVITY_EDIT:
@@ -131,12 +133,12 @@ public class MainItemActivity extends ListActivity {
     }*/
     
     /**
-     * When the back-key is pressed we must return something to the activity
-     * that started this activity
+     * When the back-key is pressed we simply return to the previous activity
+     * with the same Intent (no data changed)
      */
     @Override
     public void onBackPressed() {
-    	setResult(RESULT_OK, new Intent()); //send the result back to the activity that started this activity
+    	setResult(RESULT_OK, getIntent());
     	finish();
     }
 }
