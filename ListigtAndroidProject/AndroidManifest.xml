@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".MainListView"
+            android:name=".MainListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ListEditCreate"></activity>
-        <activity android:name="ItemView"></activity>
-        <activity android:name="ItemEditCreate"></activity>
+        <activity android:name=".ListEditor"></activity>
+        <activity android:name=".MainItemActivity"></activity>
+        <activity android:name=".ItemEditor"></activity>
     </application>
 
 </manifest>

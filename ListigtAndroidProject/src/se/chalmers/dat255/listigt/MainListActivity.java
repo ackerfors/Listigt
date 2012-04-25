@@ -31,7 +31,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class MainListView extends ListActivity {
+public class MainListActivity extends ListActivity {
     private ListsDbAdapter listsDbAdapter;//Creates a new Adapter-object used to access the database
     public static final int INSERT_LIST_ID = Menu.FIRST;
 	private static final int ACTIVITY_CREATE = 0;
@@ -88,7 +88,7 @@ public class MainListView extends ListActivity {
     
     /** Called to create a new list */
     private void createList(){
-    	Intent i = new Intent(this, ListEditCreate.class);
+    	Intent i = new Intent(this, ListEditor.class);
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
@@ -98,7 +98,7 @@ public class MainListView extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, ItemView.class);
+        Intent i = new Intent(this, MainItemActivity.class);
         i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_GOTOITEMS);
     }

@@ -28,7 +28,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-public class ItemView extends ListActivity {
+public class MainItemActivity extends ListActivity {
     private ItemsDbAdapter itemDbAdapter;//Creates a new Adapter-object used to access the database
     public static final int INSERT_ITEM_ID = Menu.FIRST;
 	private static final int ACTIVITY_CREATE = 0;
@@ -87,7 +87,7 @@ public class ItemView extends ListActivity {
      * 
      * */
     private void createItem(){
-    	Intent i = new Intent(this, ItemEditCreate.class);
+    	Intent i = new Intent(this, ItemEditor.class);
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     

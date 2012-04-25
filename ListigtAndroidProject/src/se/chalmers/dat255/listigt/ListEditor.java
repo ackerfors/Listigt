@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ListEditCreate extends Activity {
+public class ListEditor extends Activity {
 	EditText editableListTitle; //creates an editable textbox
 	Long currentRowId;
 	
