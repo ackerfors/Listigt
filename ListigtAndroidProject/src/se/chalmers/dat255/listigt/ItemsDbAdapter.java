@@ -47,8 +47,8 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
      */
     public long createItem(String title, String description, int parent) {
     	ContentValues argumentValues = new ContentValues();
-    	argumentValues.put(KEY_TITLE,title);
-    	argumentValues.put(KEY_DESCRIPTION,description);
+    	argumentValues.put(KEY_TITLE, title);
+    	argumentValues.put(KEY_DESCRIPTION, description);
     	//argumentValues.put(KEY_WEIGHT, weight);
     	argumentValues.put(KEY_BOOKED, 0);
     	argumentValues.put(KEY_PARENT, parent);
@@ -108,7 +108,7 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     public boolean updateItem(long rowId, String title, String description) {
         ContentValues argumentValues = new ContentValues();
         argumentValues.put(KEY_TITLE, title);
-        argumentValues.put(KEY_TITLE, description);
+        argumentValues.put(KEY_DESCRIPTION, description);
 
         return sqlLiteDb.update(DATABASE_TABLE, argumentValues, KEY_ROWID + "=" + rowId, null) > 0;
     }
