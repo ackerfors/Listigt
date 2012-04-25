@@ -50,6 +50,7 @@ public class MainListActivity extends ListActivity {
         setContentView(R.layout.main_list); //Sets the layout to the one we specified in res/layout
         listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
         listsDbAdapter.open();//open or create the database
+        registerForContextMenu(getListView());
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
     /**
@@ -88,15 +89,15 @@ public class MainListActivity extends ListActivity {
      */
     private void fillData(){
     	// Get all of the notes from the database and create the item list
-        Cursor c = listsDbAdapter.fetchAllLists();
-        startManagingCursor(c);
+        listCursor = listsDbAdapter.fetchAllLists();
+        startManagingCursor(listCursor);
 
         String[] from = new String[] { ListsDbAdapter.KEY_TITLE };
         int[] to = new int[] { R.id.listRowTitle };
         
         // Creates an array adapter and set it to display using our row
         SimpleCursorAdapter notes =
-            new SimpleCursorAdapter(this, R.layout.list_row, c, from, to);
+            new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(notes);
     }
     
