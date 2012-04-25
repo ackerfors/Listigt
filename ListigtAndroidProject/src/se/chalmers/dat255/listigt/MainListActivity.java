@@ -33,12 +33,14 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class MainListActivity extends ListActivity {
     private ListsDbAdapter listsDbAdapter;//Creates a new Adapter-object used to access the database
-    public static final int INSERT_LIST_ID = Menu.FIRST;
+    private static final int INSERT_LIST_ID = Menu.FIRST;
+    private static final int DELETE_ID = Menu.FIRST + 1;
+    private static final int EDIT_ID = Menu.FIRST + 2;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
 	private static final int ACTIVITY_GOTOITEMS = 2;
-    private Cursor listCursor;
 
+	private Cursor listCursor;
     /** Called when the activity is first created. 
      * 
      * */
@@ -50,12 +52,24 @@ public class MainListActivity extends ListActivity {
         listsDbAdapter.open();//open or create the database
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
-
+    /**
+     * The menu that is accessed by clicking the menu-button
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
         menu.add(0, INSERT_LIST_ID, 0, R.string.menu_insert_list);
         return result;
+    }
+    
+    /**
+     * The menu that is accessed by long-clicking a list
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, DELETE_ID, 0, R.string.delete);
+        menu.add(0, EDIT_ID, 0, R.string.edit);
     }
 
     @Override
@@ -101,6 +115,31 @@ public class MainListActivity extends ListActivity {
         Intent i = new Intent(this, MainItemActivity.class);
         i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_GOTOITEMS);
+    }
+    
+    /**
+     * Called when an option from the context-menu has been clicked
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+        case DELETE_ID:
+            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+            listsDbAdapter.deleteList(info.id);
+            fillData();
+            return true;
+        case EDIT_ID:
+        	AdapterContextMenuInfo info2 = (AdapterContextMenuInfo) item.getMenuInfo();
+        	Cursor c = listCursor;
+        	c.moveToPosition(info2.position);
+        	Intent i = new Intent(this, ListEditor.class);
+        	i.putExtra(ListsDbAdapter.KEY_ROWID, info2.id);
+        	i.putExtra(ListsDbAdapter.KEY_TITLE, c.getString(
+        	        c.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)));
+        	startActivityForResult(i, ACTIVITY_EDIT);
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
     
     @Override
