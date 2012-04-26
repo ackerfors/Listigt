@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="ListigtTheme">
-    <!-- <item name="android:windowNoTitle">true</item> -->
-    <!-- <item name="android:windowBackground">@color/background</item> -->
-    <!-- <item name="android:listViewStyle">@style/StandardListView</item> -->
-    <!-- <item name="android:textAppearance">@style/StandardTextAppearance</item> -->
+  <style name="ListigtTheme" parent="android:Theme.NoTitleBar">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:textSize">24sp</item>
+    <item name="android:textColor">@color/list_title</item>
+    <item name="android:listViewStyle">@style/ListView</item>
   </style>
-
-  <style name="StandardListView">
-    <item name="android:listSelector">@color/selector</item>
+  
+  <style name="ListigtTheme.Items">
+    <item name="android:windowBackground">@color/backgroundItemList</item>
+    <item name="android:textColor">@color/item_title</item>
   </style>
-  <style name="StandardTextAppearance">
-    <item name="android:textSize">15sp</item>
-    <item name="android:textColor">#333</item>
-    <item name="android:textStyle">bold</item>
+  
+  <style name="ListView" parent="@android:style/Widget.ListView">
+  	<item name="android:divider">@android:color/transparent</item>
+    <item name="android:dividerHeight">3dp</item>
   </style>
+    
+  
 </resources>
