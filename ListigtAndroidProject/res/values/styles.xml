@@ -2,9 +2,9 @@
 <resources>
   <style name="ListigtTheme" parent="android:Theme.NoTitleBar">
     <item name="android:windowNoTitle">true</item>
-    <item name="android:textSize">24sp</item>
+    <item name="android:textSize">20sp</item>
     <item name="android:textColor">@color/list_title</item>
-    <item name="android:listViewStyle">@style/ListView</item>
+    <item name="android:listViewStyle">@style/MyListView</item>
   </style>
   
   <style name="ListigtTheme.Items">
@@ -12,9 +12,21 @@
     <item name="android:textColor">@color/item_title</item>
   </style>
   
-  <style name="ListView" parent="@android:style/Widget.ListView">
+  <style name="MyListView" parent="@android:style/Widget.ListView">
   	<item name="android:divider">@android:color/transparent</item>
     <item name="android:dividerHeight">3dp</item>
+  </style>
+  
+  <style name="ItemTitleDetails">
+  	<item name="android:paddingLeft">4dp</item>
+  </style>
+  
+  <style name="ItemDescDetails">
+  	<item name="android:paddingTop">4dp</item>
+  </style>
+  
+  <style name="InfoText">
+      <item name="android:textColor">@color/infotext</item>
   </style>
     
   
