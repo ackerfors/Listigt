@@ -14,27 +14,23 @@
 		    android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:text="@string/title" />
-		<EditText
-		    android:id="@+id/itemEditTitleField" 
+		<TextView style="@style/ItemTitleDetails"
+		    android:id="@+id/itemTitleField" 
 		  	android:layout_width="fill_parent"
 			android:layout_height="wrap_content" 
-			android:layout_weight="1"/>
+			android:layout_weight="1" />
 	</LinearLayout>
 	
 	<TextView style="@style/InfoText"
 	    android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
 		android:text="@string/description" />
-	<EditText android:id="@+id/itemEditDescField" android:layout_width="fill_parent"
+	<TextView style="@style/ItemDescDetails"
+	    android:id="@+id/itemDescField"
+	    android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:scrollbars="vertical" />
 
-	<Button
-	    android:id="@+id/confirmButton"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center_horizontal"
-	    android:text="@string/confirm" />
 
 </LinearLayout>

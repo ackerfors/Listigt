@@ -3,6 +3,7 @@ package se.chalmers.dat255.listigt;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 public class ListEditor extends Activity {
 	EditText editableListTitle; //creates an editable textbox
 	Long currentRowId;
+	private boolean checkTitleNotEmpty=true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +20,7 @@ public class ListEditor extends Activity {
 		setTitle(R.string.listEditCreateTitle);//set the title for this activity
 		editableListTitle = (EditText) findViewById(R.id.listEditTitleField);//instantiate the Title-text field		
 		Button confirmButton = (Button)	 findViewById(R.id.confirmButton);//instantiate the confirm button
+		
 		
 		currentRowId = null;
 		Bundle extras = getIntent().getExtras();
@@ -30,7 +33,14 @@ public class ListEditor extends Activity {
 			        editableListTitle.setText(title);//if we're editing an existing list, show its Title
 			    }
 		}
+		/** while(checkTitleNotEmpty){
+			confirmButton.setEnabled(false);
+			checkTitleNotEmpty=TextUtils.isEmpty(editableListTitle.getText().toString());
+		} 
+		Ordna denna evigehetsloop sen
+		*/
 		
+			confirmButton.setEnabled(true);
 		/**Begin listening to the confirmButton */
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			/** When the button is clicked, run this method*/
