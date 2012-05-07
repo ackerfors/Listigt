@@ -1,0 +1,12 @@
+2012-05-07		Changelog Listigt Release v0.3.0		Erik Olesund	<olesund@student.chalmers.se>
+
+	* ListigtAndroidProject_v0.3.0.apk can be found in ../dist
+
+Changes in this version:
+    * ItemDetails-activity implemented
+	* Layout modified
+    
+Known errors:
+	* Incorrect items are displayed when entering a list
+	* Sharing-activity unimplemented
+	

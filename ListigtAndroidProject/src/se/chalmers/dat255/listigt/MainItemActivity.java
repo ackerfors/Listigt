@@ -148,9 +148,15 @@ public class MainItemActivity extends ListActivity {
    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent i = new Intent(this, ItemDetailsActivity.class);
-        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
-        startActivityForResult(i, ACTIVITY_DETAILS);
+    	Cursor c = itemCursor;
+    	c.moveToPosition(position);
+    	Intent i = new Intent(this, ItemDetailsActivity.class);
+    	i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
+    	i.putExtra(ItemsDbAdapter.KEY_TITLE, c.getString(
+    	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE)));
+    	i.putExtra(ItemsDbAdapter.KEY_DESCRIPTION, c.getString(
+    	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_DESCRIPTION)));
+    	startActivityForResult(i, ACTIVITY_DETAILS);
     }
     
     /**
