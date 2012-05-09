@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 
 public class ListEditor extends Activity implements TextWatcher {
 	EditText editableListTitle; //creates an editable textbox
