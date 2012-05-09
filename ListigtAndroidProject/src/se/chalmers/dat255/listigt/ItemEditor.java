@@ -3,13 +3,17 @@ package se.chalmers.dat255.listigt;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ItemEditor extends Activity {
+public class ItemEditor extends Activity implements TextWatcher {
 	EditText editableItemTitle, editableItemDesc; //creates two editable textboxes
 	Long currentRowId;
+	Button confirmButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,9 +21,10 @@ public class ItemEditor extends Activity {
 		setContentView(R.layout.item_editcreate);//use the layout defined in item_editcreate.xml
 		setTitle(R.string.itemEditCreateTitle);//set the title for this activity
 		editableItemTitle = (EditText) findViewById(R.id.itemEditTitleField);//instantiate the Title-text field	
+		editableItemTitle.addTextChangedListener(this);
 		editableItemDesc = (EditText) findViewById(R.id.itemEditDescField);
-		Button confirmButton = (Button)	 findViewById(R.id.confirmButton);//instantiate the confirm button
-		
+		confirmButton = (Button) findViewById(R.id.confirmButton);//instantiate the confirm button
+		confirmButton.setEnabled(false);
 		currentRowId = null;
 		Bundle extras = getIntent().getExtras();
 		//Check if the intent that started this activity brought any extra stuff
@@ -30,6 +35,7 @@ public class ItemEditor extends Activity {
 			 
 			 if (title != null) {
 			        editableItemTitle.setText(title);//if we're editing an existing item, show its Title
+			        confirmButton.setEnabled(true);
 			    }
 			 
 			 if (desc != null) {
@@ -67,4 +73,23 @@ public class ItemEditor extends Activity {
     	setResult(RESULT_OK, getIntent());
     	finish();
     }
+    
+    /**
+     * Methods that run when the title is being edited
+     */
+
+	public void afterTextChanged(Editable s) {
+		// No need to implement this
+	}
+
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+		// No need to implement this
+	}
+
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		
+			confirmButton.setEnabled(!TextUtils.isEmpty(editableItemTitle.getText().toString()));
+    	
+	}
 }
