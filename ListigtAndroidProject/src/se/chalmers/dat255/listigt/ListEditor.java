@@ -49,10 +49,7 @@ public class ListEditor extends Activity implements TextWatcher {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			/** When the button is clicked, run this method*/
 		    public void onClick(View view) {
-		    	if(TextUtils.isEmpty(editableListTitle.getText().toString())){
-		    		//POP-UP
-		    		showDialog();
-		    	} else {
+		    	
 			    	Bundle bundle = new Bundle();
 	
 			    	bundle.putString(ListsDbAdapter.KEY_TITLE, editableListTitle.getText().toString());
@@ -64,7 +61,7 @@ public class ListEditor extends Activity implements TextWatcher {
 			    	updateIntent.putExtras(bundle);//ship all the data stored in the bundle with the intent
 			    	setResult(RESULT_OK, updateIntent);//send the result back to the activity that started this activity
 			    	finish();
-		    	}
+		    	
 		    }
 		});
 	}
@@ -72,7 +69,7 @@ public class ListEditor extends Activity implements TextWatcher {
 	private void showDialog(){
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			// Setting Dialog Title
-			alertDialog.setTitle("Your list needs a title buddy!");
+			alertDialog.setTitle("Buddy, that title is way to	o long!");
 			
 			// Setting OK Button
 			alertDialog.setButton("OK, got it!", new DialogInterface.OnClickListener() {
