@@ -39,6 +39,7 @@ public class MainItemActivity extends ListActivity {
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
 	private static final int ACTIVITY_DETAILS = 2;
+	private static long LIST_ID;
     private Cursor itemCursor;
 
     /** Called when the activity is first created. 
@@ -88,7 +89,8 @@ public class MainItemActivity extends ListActivity {
      */
     private void fillData(){
     	// Get all of the notes from the database and create the item list
-        itemCursor = itemDbAdapter.fetchAllItems();
+    	
+        itemCursor = itemDbAdapter.fetchAllItemsFromList(LIST_ID);
         startManagingCursor(itemCursor);
 
         String[] from = new String[] { ItemsDbAdapter.KEY_TITLE };
@@ -119,7 +121,7 @@ public class MainItemActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
-
+    	LIST_ID = extras.getLong("_id");
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
     	    if(extras != null){

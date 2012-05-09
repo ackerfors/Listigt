@@ -22,15 +22,13 @@ public abstract class AbstractListigtDbAdapter {
     protected static final String TAG = "AbstractDBAdapter";
     protected static final String CREATE_ITEMS_TABLE = 
 		"CREATE TABLE items (_id INTEGER PRIMARY KEY AUTOINCREMENT, itemTitle TEXT NOT NULL, " +
-		"description TEXT, weight INTEGER, booked INTEGER, parent INTEGER);";
+		"description TEXT, booked INTEGER, parent INTEGER);";
     protected static final String CREATE_LISTS_TABLE = 
-		"CREATE TABLE lists (_id INTEGER PRIMARY KEY AUTOINCREMENT, listTitle TEXT NOT NULL, " +
-		"description TEXT, weight INTEGER);";
+		"CREATE TABLE lists (_id INTEGER PRIMARY KEY AUTOINCREMENT, listTitle TEXT NOT NULL);";
     protected static final String DATABASE_NAME = "Listigt";
-    protected static final int DATABASE_VERSION = 1;
+    protected static final int DATABASE_VERSION = 2;
     protected static final String DATABASE_ITEMS_TABLE = "items";
     protected static final String DATABASE_LISTS_TABLE = "lists";
-	
     protected final Context myContext;
 	
 	/**

@@ -73,8 +73,28 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
      * @return Cursor over all items
      */
     public Cursor fetchAllItems() {
-    	return sqlLiteDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-    			KEY_DESCRIPTION, KEY_BOOKED, KEY_PARENT}, null, null, null, null, null);
+    	String[] table = new String[] {KEY_ROWID, KEY_TITLE, KEY_DESCRIPTION, KEY_BOOKED, KEY_PARENT};
+    	
+    	return sqlLiteDb.query(DATABASE_TABLE, table, null, null, null, null, null);
+    }
+    
+    /**
+     * Return a Cursor positioned at the item that matches the given rowId
+     * 
+     * @param rowId id of route to retrieve
+     * @return Cursor positioned to matching route, if found
+     * @throws SQLException if route could not be found/retrieved
+     */
+    public Cursor fetchAllItemsFromList(long listId) throws SQLException {
+        String[] table = new String[] {KEY_ROWID, KEY_TITLE, KEY_DESCRIPTION, KEY_BOOKED, KEY_PARENT};
+    	String whereString = KEY_PARENT + "=" + listId;
+        
+        Cursor myCursor =
+        	sqlLiteDb.query(DATABASE_TABLE, table, whereString , null, null, null, null, null);
+        /*if (myCursor != null) {
+        	myCursor.moveToFirst();
+        }*/
+        return myCursor;
     }
 
     /**

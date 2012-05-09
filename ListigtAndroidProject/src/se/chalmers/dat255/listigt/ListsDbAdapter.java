@@ -67,8 +67,9 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
      * @return Cursor over all lists
      */
     public Cursor fetchAllLists() {
-    	return sqlLiteDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-    			}, null, null, null, null, null);
+    	String[] tables = new String[] {KEY_ROWID, KEY_TITLE};
+    	Cursor myCursor = sqlLiteDb.query(DATABASE_TABLE, tables, null, null, null, null, null);
+    	return myCursor;
     }
 
     /**
@@ -79,10 +80,9 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
      * @throws SQLException if route could not be found/retrieved
      */
     public Cursor fetchList(long rowId) throws SQLException {
-        Cursor myCursor =
-        	sqlLiteDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                    KEY_TITLE}, KEY_ROWID + "=" + rowId, null,
-                    null, null, null, null);
+    	String[] tables = new String[] {KEY_ROWID, KEY_TITLE};
+    	String rowQuery = KEY_ROWID + "=" + rowId;
+    	Cursor myCursor = sqlLiteDb.query(true, DATABASE_TABLE, tables, rowQuery, null, null, null, null, null);
         if (myCursor != null) {
         	myCursor.moveToFirst();
         }
