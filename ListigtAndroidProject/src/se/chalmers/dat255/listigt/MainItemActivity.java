@@ -48,6 +48,8 @@ public class MainItemActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();//take care of the extras the activity may have sent back to us
+    	LIST_ID = extras.getLong("_id");
         setContentView(R.layout.main_items); //Sets the layout to the one we specified in res/layout/
         itemDbAdapter = new ItemsDbAdapter(this);//Construct the database-adapter
         itemDbAdapter.open();//open or create the database
@@ -121,14 +123,12 @@ public class MainItemActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
-    	LIST_ID = extras.getLong("_id");
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
     	    if(extras != null){
 	    		String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
 	    	    String description = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
-	    	    int parent = extras.getInt(ItemsDbAdapter.KEY_PARENT);
-	    	    itemDbAdapter.createItem(title, description, parent);
+	    	    itemDbAdapter.createItem(title, description, (int) LIST_ID);
     	    }
     	    fillData();
     	    break;

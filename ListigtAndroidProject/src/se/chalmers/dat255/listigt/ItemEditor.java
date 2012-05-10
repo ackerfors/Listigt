@@ -33,6 +33,7 @@ public class ItemEditor extends Activity implements TextWatcher {
 			 String desc = (String) extras.get(ItemsDbAdapter.KEY_DESCRIPTION);
 			 currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);
 			 
+			 
 			 if (title != null) {
 			        editableItemTitle.setText(title);//if we're editing an existing item, show its Title
 			        confirmButton.setEnabled(true);

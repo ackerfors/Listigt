@@ -88,12 +88,8 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     public Cursor fetchAllItemsFromList(long listId) throws SQLException {
         String[] table = new String[] {KEY_ROWID, KEY_TITLE, KEY_DESCRIPTION, KEY_BOOKED, KEY_PARENT};
     	String whereString = KEY_PARENT + "=" + listId;
+        Cursor myCursor = sqlLiteDb.query(DATABASE_TABLE, table, whereString , null, null, null, null, null);
         
-        Cursor myCursor =
-        	sqlLiteDb.query(DATABASE_TABLE, table, whereString , null, null, null, null, null);
-        /*if (myCursor != null) {
-        	myCursor.moveToFirst();
-        }*/
         return myCursor;
     }
 
