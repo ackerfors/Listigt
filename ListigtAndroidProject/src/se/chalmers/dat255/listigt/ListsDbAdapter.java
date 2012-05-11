@@ -1,6 +1,3 @@
-/**
- * 
- */
 package se.chalmers.dat255.listigt;
 
 import android.content.ContentValues;
@@ -12,7 +9,7 @@ import android.database.SQLException;
  * Implementation of the abstract class AbstractListigtDbAdapter.
  * Fill handle the table specific inserts, selects, deletes etc.
  * 
- * @author paac
+ * @author Ackerfors Crew
  *
  */
 public class ListsDbAdapter extends AbstractListigtDbAdapter {
@@ -34,16 +31,14 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
-     * Create a new list with a title, description and a weight.
+     * Create a new list with a title and description.
      * 
      * @param title
      * @param description
-     * @param weight
      * @return rowId or -1 if failed
      */
     public long createList(String title) {
     	ContentValues argumentValues = new ContentValues();
-    	
     	argumentValues.put(KEY_TITLE,title);
     	//argumentValues.put(KEY_WEIGHT, weight);
     	
@@ -90,13 +85,11 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
+     * Update a list with provided title. The list to be updated is
+     * specified using the rowId.
      * 
      * @param rowId id of note to update
      * @param title value to set note title to
-     * @param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
     public boolean updateList(long rowId, String title) {

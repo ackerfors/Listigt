@@ -31,6 +31,16 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+
+/**
+ * This is the activity class that will handle the display of items.
+ * It will instantiate the item database adapter and use it to fill up lines with
+ * items from the database. This class is called from MainListActivity and that class
+ * will pass the clicked lists ID to this class so that the correct items will show.
+ * 
+ * @author Ackerfors Crew
+ *
+ */
 public class MainItemActivity extends ListActivity {
     private ItemsDbAdapter itemDbAdapter;//Creates a new Adapter-object used to access the database
     public static final int INSERT_ITEM_ID = Menu.FIRST;
@@ -42,19 +52,21 @@ public class MainItemActivity extends ListActivity {
 	private static long LIST_ID;
     private Cursor itemCursor;
 
-    /** Called when the activity is first created. 
+    /**  
+     * Called when the activity is first created.
+     * Gets the lists id from the intent that activated this activity and sets it to LIST_ID.
      * 
      * */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras();//take care of the extras the activity may have sent back to us
+        Bundle extras = getIntent().getExtras();		//take care of the extras the activity may have sent back to us
     	LIST_ID = extras.getLong("_id");
-        setContentView(R.layout.main_items); //Sets the layout to the one we specified in res/layout/
-        itemDbAdapter = new ItemsDbAdapter(this);//Construct the database-adapter
-        itemDbAdapter.open();//open or create the database
+        setContentView(R.layout.main_items); 			//Sets the layout to the one we specified in res/layout/
+        itemDbAdapter = new ItemsDbAdapter(this);		//Construct the database-adapter
+        itemDbAdapter.open();							//open or create the database
         registerForContextMenu(getListView());
-        fillData();//calls internal method to fetch data from DB and load it onto our ListView
+        fillData();										//calls internal method to fetch data from DB and load it onto our ListView
     }
 
     @Override
@@ -65,7 +77,8 @@ public class MainItemActivity extends ListActivity {
     }
     
     /**
-     * The menu that is accessed by long-clicking a list
+     * The menu that is accessed by long-clicking a list.
+     * The options Delete and Edit will be present.
      */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -77,21 +90,20 @@ public class MainItemActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	switch(item.getItemId()){//checks which MenuItem that was selected
-    	case INSERT_ITEM_ID://if the "Add Item"-button was clicked
-    		createItem();//then call internal method to create a new item
-    		return true;//and return true because the operation was successful
+    	switch(item.getItemId()){		//checks which MenuItem that was selected
+    	case INSERT_ITEM_ID:			//if the "Add Item"-button was clicked
+    		createItem();				//then call internal method to create a new item
+    		return true;				//and return true because the operation was successful
     	}
     	return super.onOptionsItemSelected(item);
     }
     
     /**
-     * Fetch data from the database adapter class and load it to a Cursor. Then use it to
-     * load it onto our ListView.
+     * Fetch data from the database adapter class and load it to a Cursor. 
+     * Gets the items from the list that started this activity.
+     * Then use it to load it onto our ListView.
      */
     private void fillData(){
-    	// Get all of the notes from the database and create the item list
-    	
         itemCursor = itemDbAdapter.fetchAllItemsFromList(LIST_ID);
         startManagingCursor(itemCursor);
 
@@ -104,8 +116,8 @@ public class MainItemActivity extends ListActivity {
         setListAdapter(items);
     }
     
-    /** Called to create a new item 
-     * Adding more comments
+    /** 
+     * Called to create a new item.
      * 
      * */
     private void createItem(){
@@ -113,13 +125,15 @@ public class MainItemActivity extends ListActivity {
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
-    @Override
-    /**This method runs when an activity that we started finishes and returns information
+    
+    /**
+     * This method runs when an activity that we started finishes and returns information
      * 
      * @param requestCode 
      * @param resultCode
      * @param intent 
    	*/
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
@@ -147,6 +161,11 @@ public class MainItemActivity extends ListActivity {
     	}
     }
     
+    /**
+     * Runs when the users clicks on an item. Bundles the relevant information
+     * into the extras of the intent and starts the activity that shows the items
+     * details.
+     */
    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -162,7 +181,10 @@ public class MainItemActivity extends ListActivity {
     }
     
     /**
-     * Called when an option from the context-menu has been clicked
+     * Called when an option from the context-menu has been clicked.
+     * Gives the options of editing or deleting an item. If editing is clicked
+     * a new activity, ItemEditor, will be launched.
+     * 
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {

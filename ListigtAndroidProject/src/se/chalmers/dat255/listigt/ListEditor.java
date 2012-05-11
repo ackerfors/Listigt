@@ -12,6 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * This class is called from the MainListActivity if the user wants to add or edit a list. 
+ * 
+ * @author Ackerfors Crew
+ *
+ */
 public class ListEditor extends Activity implements TextWatcher {
 	EditText editableListTitle; //creates an editable textbox
 	Long currentRowId;
@@ -21,23 +27,28 @@ public class ListEditor extends Activity implements TextWatcher {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list_editcreate);//use the layout defined in list_editcreate.xml
-		setTitle(R.string.listEditCreateTitle);//set the title for this activity
-		editableListTitle = (EditText) findViewById(R.id.listEditTitleField);//instantiate the Title-text field	
+		//use the layout defined in list_editcreate.xml
+		setContentView(R.layout.list_editcreate);
+		//set the title for this activity
+		setTitle(R.string.listEditCreateTitle);
+		//set the Title-text field
+		editableListTitle = (EditText) findViewById(R.id.listEditTitleField);	
 		editableListTitle.addTextChangedListener(this);
-		confirmButton = (Button) findViewById(R.id.confirmButton);//instantiate the confirm button
-		confirmButton.setEnabled(false);//per default disabled
+		//set the confirm button
+		confirmButton = (Button) findViewById(R.id.confirmButton);
+		//confirm button per default disabled
+		confirmButton.setEnabled(false);
 		builder = new AlertDialog.Builder(this);
 		
 		currentRowId = null;
 		Bundle extras = getIntent().getExtras();
-		//Check if the intent that started this activity brought any extra stuff
 		if(extras!=null){
 			 String title = extras.getString(ListsDbAdapter.KEY_TITLE);
 			 currentRowId = extras.getLong(ListsDbAdapter.KEY_ROWID);
 			 
 			 if (title != null) {
-			        editableListTitle.setText(title);//if we're editing an existing list, show its Title
+				//if we're editing an existing list, show its Title
+			        editableListTitle.setText(title);
 			        confirmButton.setEnabled(true);
 			    }
 		}
@@ -55,18 +66,23 @@ public class ListEditor extends Activity implements TextWatcher {
 			    	}
 			    	
 			    	Intent updateIntent = new Intent();
-			    	updateIntent.putExtras(bundle);//ship all the data stored in the bundle with the intent
-			    	setResult(RESULT_OK, updateIntent);//send the result back to the activity that started this activity
+			    	//ship all the data stored in the bundle with the intent
+			    	updateIntent.putExtras(bundle);
+			    	//send the result back to the activity that started this activity
+			    	setResult(RESULT_OK, updateIntent);
 			    	finish();
-		    	
 		    }
 		});
 	}
 	
+	/**
+	 * Runs if the user has written too many latters in the title.
+	 * NOT YET USED.
+	 */
 	private void showDialog(){
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			// Setting Dialog Title
-			alertDialog.setTitle("Buddy, that title is way to	o long!");
+			alertDialog.setTitle("Buddy, that title is way too long!");
 			
 			// Setting OK Button
 			alertDialog.setButton("OK, got it!", new DialogInterface.OnClickListener() {
@@ -93,19 +109,15 @@ public class ListEditor extends Activity implements TextWatcher {
     /**
      * Methods that run when the title is being edited
      */
-
 	public void afterTextChanged(Editable s) {
 		// No need to implement this
 	}
 
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 		// No need to implement this
 	}
 
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		
-			confirmButton.setEnabled(!TextUtils.isEmpty(editableListTitle.getText().toString()));
-    	
+		confirmButton.setEnabled(!TextUtils.isEmpty(editableListTitle.getText().toString()));
 	}
 }

@@ -13,7 +13,7 @@ import android.util.Log;
  * This is an abstract class and an implementation for each table must be
  * implemented. The two tables are items and lists.
  * 
- *@author paac
+ *@author Ackerfors Crew
  */
 public abstract class AbstractListigtDbAdapter {
     protected InnerSQLOpenHelper innerDbHelpder;
@@ -62,7 +62,16 @@ public abstract class AbstractListigtDbAdapter {
     	innerDbHelpder.close();
     }
 	
+    
+    /**
+     * The inner class of the database adapter. This will extend SQLiteOpenHelper and 
+     * will create the SQL database if it does not exist and upgrade it if neccessary.
+     * 
+     * @author Ackerfors Crew
+     */
 	private static class InnerSQLOpenHelper extends SQLiteOpenHelper {
+		
+		
 		public InnerSQLOpenHelper (Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}

@@ -9,10 +9,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 
 /**
- * Implementation of the abstract class AbstractListigtDbAdapter.
- * Fill handle the table specific inserts, selects, deletes etc.
+ * Extends the abstract class AbstractListigtDbAdapter.
+ * Gets, inserts, deletes or updates items in the database.
  * 
- * @author paac
+ * @author Ackerfors Crew
  *
  */
 public class ItemsDbAdapter extends AbstractListigtDbAdapter {
@@ -22,7 +22,6 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     public static final String KEY_BOOKED = "booked";
     public static final String KEY_PARENT = "parent";
     public static final String KEY_ROWID = "_id";
-
     private static final String DATABASE_TABLE = "items";
 
     /**
@@ -36,13 +35,11 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
-     * Create a new item with a title, description, a weight, if it's booked and it's parent list.
+     * Create a new item with a title, description and it's parent list.
      * 
-     * @param title
-     * @param description
-     * @param weight
-     * @param booked
-     * @param parent
+     * @param title The items Title
+     * @param description The items description
+     * @param parent The items parent list id.
      * @return rowId or -1 if failed
      */
     public long createItem(String title, String description, int parent) {
@@ -79,7 +76,7 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
-     * Return a Cursor positioned at the item that matches the given rowId
+     * Return a Cursor over all items that matches the parent id.
      * 
      * @param rowId id of route to retrieve
      * @return Cursor positioned to matching route, if found
@@ -112,13 +109,12 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
+     * Update the item using the provided title and description. The item to be updated is
+     * specified using the rowId.
      * 
      * @param rowId id of note to update
      * @param title value to set note title to
-     * @param body value to set note body to
+     * @param description value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
     public boolean updateItem(long rowId, String title, String description) {

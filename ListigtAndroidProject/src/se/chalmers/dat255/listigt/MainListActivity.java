@@ -31,6 +31,14 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+/**
+ * This class extends ListActivity and is the class that handles
+ * the activity of populating the initial screen of this application
+ * with a list of lists.
+ * 
+ * @author Patrik Ackerfors
+ *
+ */
 public class MainListActivity extends ListActivity {
     private ListsDbAdapter listsDbAdapter;//Creates a new Adapter-object used to access the database
     private static final int INSERT_LIST_ID = Menu.FIRST;
@@ -41,9 +49,13 @@ public class MainListActivity extends ListActivity {
 	private static final int ACTIVITY_GOTOITEMS = 2;
 
 	private Cursor listCursor;
-    /** Called when the activity is first created. 
-     * 
-     * */
+	
+	
+    /** 
+     * Called when the activity is first created. 
+     * Sets the layout and opens the database adapter. Then fills the views with data
+     * from the database.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +65,7 @@ public class MainListActivity extends ListActivity {
         registerForContextMenu(getListView());
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
+    
     /**
      * The menu that is accessed by clicking the menu-button
      */
@@ -64,7 +77,9 @@ public class MainListActivity extends ListActivity {
     }
     
     /**
-     * The menu that is accessed by long-clicking a list
+     * The menu that is accessed by long-clicking a lists title.
+     * Gives the options of editing a  and Delete.
+     * 
      */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -88,7 +103,6 @@ public class MainListActivity extends ListActivity {
      * load it onto our ListView.
      */
     private void fillData(){
-    	// Get all of the notes from the database and create the item list
         listCursor = listsDbAdapter.fetchAllLists();
         startManagingCursor(listCursor);
 
@@ -108,7 +122,9 @@ public class MainListActivity extends ListActivity {
     }
     
     /**
-     * Called when someone clicks on a list
+     * Called when someone clicks on a list. Puts what id the clicked list has
+     * and sends it with an extra and launches a new activity that displays
+     * that particular list's items.
      */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -119,7 +135,11 @@ public class MainListActivity extends ListActivity {
     }
     
     /**
-     * Called when an option from the context-menu has been clicked
+     * Called when an option from the context-menu has been clicked.
+     * If the user wanted to delete a list, that list will be deleted from
+     * the database and this activity will be re-populated. If the user wants
+     * to edit a list a new activity, ListEditor, will be launched and the
+     * title will be passed as an extra in the intent.
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -143,13 +163,14 @@ public class MainListActivity extends ListActivity {
         return super.onContextItemSelected(item);
     }
     
-    @Override
+   
     /**This method runs when an activity that we started finishes and returns information
      * 
      * @param requestCode 
      * @param resultCode
      * @param intent 
    	*/
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
