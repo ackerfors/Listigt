@@ -76,7 +76,7 @@ public class ListEditor extends Activity implements TextWatcher {
 	}
 	
 	/**
-	 * Runs if the user has written too many latters in the title.
+	 * Runs if the user has written too many letters in the title.
 	 * NOT YET USED.
 	 */
 	private void showDialog(){

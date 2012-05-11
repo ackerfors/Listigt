@@ -46,7 +46,7 @@ public abstract class AbstractListigtDbAdapter {
      * It opens the database if it exists, else it creates it or upgrades it.
      * 
      * @return this (self reference, allowing this to be chained in an
-     *         initialization call)
+     *         Initialisation call)
      * @throws SQLException if the database could be neither opened or created
      */
     public AbstractListigtDbAdapter open() throws SQLException {
@@ -65,7 +65,7 @@ public abstract class AbstractListigtDbAdapter {
     
     /**
      * The inner class of the database adapter. This will extend SQLiteOpenHelper and 
-     * will create the SQL database if it does not exist and upgrade it if neccessary.
+     * will create the SQL database if it does not exist and upgrade it if necessary.
      * 
      * @author Ackerfors Crew
      */

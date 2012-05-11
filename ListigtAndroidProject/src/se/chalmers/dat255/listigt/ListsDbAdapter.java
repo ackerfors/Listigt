@@ -17,7 +17,6 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
     //public static final String KEY_DESCRIPTION = "description";
     //public static final String KEY_WEIGHT = "weight";
     public static final String KEY_ROWID = "_id";
-
     private static final String DATABASE_TABLE = "lists";
 
     /**
