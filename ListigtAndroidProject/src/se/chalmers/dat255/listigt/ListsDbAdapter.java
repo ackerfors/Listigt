@@ -31,10 +31,9 @@ public class ListsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
-     * Create a new list with a title and description.
+     * Create a new list with a title.
      * 
      * @param title
-     * @param description
      * @return rowId or -1 if failed
      */
     public long createList(String title) {

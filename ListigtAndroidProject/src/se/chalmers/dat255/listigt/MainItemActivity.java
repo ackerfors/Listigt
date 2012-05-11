@@ -42,7 +42,7 @@ import android.widget.SimpleCursorAdapter;
  *
  */
 public class MainItemActivity extends ListActivity {
-    private ItemsDbAdapter itemDbAdapter;//Creates a new Adapter-object used to access the database
+    private ItemsDbAdapter itemDbAdapter;				//Creates a new Adapter-object used to access the database
     public static final int INSERT_ITEM_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
     private static final int EDIT_ID = Menu.FIRST + 2;

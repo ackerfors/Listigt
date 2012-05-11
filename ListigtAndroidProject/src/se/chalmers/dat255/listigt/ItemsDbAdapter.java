@@ -78,7 +78,7 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     /**
      * Return a Cursor over all items that matches the parent id.
      * 
-     * @param rowId id of route to retrieve
+     * @param listId id of route to retrieve
      * @return Cursor positioned to matching route, if found
      * @throws SQLException if route could not be found/retrieved
      */
