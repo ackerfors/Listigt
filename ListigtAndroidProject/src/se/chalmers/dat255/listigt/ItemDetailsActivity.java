@@ -19,7 +19,6 @@ public class ItemDetailsActivity extends Activity {
 	private TextView itemTitle, itemDesc;
 	Long currentRowId;
 	
-	
 	/** 
      * Called when the activity is first created. 
      * Sets the layout, open the database and fills the view up with 
