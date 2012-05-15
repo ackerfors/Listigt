@@ -52,26 +52,12 @@
 	        android:layout_height="wrap_content"
 	        android:gravity="center_vertical">
 	        <Button
-	            android:id="@+id/editButton"
+	            android:id="@+id/sendButton"
 	            android:layout_width="0dip"
 	            android:layout_weight="1.0"
 	            android:layout_height="wrap_content" 
-	            android:text="@string/edit"
-	            android:onClick="editItem" />
-	        <Button
-	            android:id="@+id/bookButton"
-	            android:layout_width="0dip"
-	            android:layout_weight="1.0"
-	            android:layout_height="wrap_content" 
-	            android:text="@string/book"
-	            android:onClick="bookItem" />
-	        <Button
-	            android:id="@+id/deleteButton"
-	            android:layout_width="0dip"
-	            android:layout_weight="1.0"
-	            android:layout_height="wrap_content" 
-	            android:text="@string/delete"
-	            android:onClick="deleteItem" />
+	            android:text="@string/send"
+	            android:onClick="sendList" />
 		</LinearLayout>
 	</LinearLayout>	
 </ScrollView>

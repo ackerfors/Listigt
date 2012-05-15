@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListEditor" android:theme="@style/ListigtTheme"></activity>
+        <activity android:name=".ShareListActivity" android:theme="@style/ListigtTheme"></activity>
         <activity android:name=".MainItemActivity" android:theme="@style/ListigtTheme.Items"></activity>
         <activity android:name=".ItemEditor" android:theme="@style/ListigtTheme.Items"></activity>
         <activity android:name=".ItemDetailsActivity" android:theme="@style/ListigtTheme.Items"></activity>

@@ -44,9 +44,11 @@ public class MainListActivity extends ListActivity {
     private static final int INSERT_LIST_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
     private static final int EDIT_ID = Menu.FIRST + 2;
+    private static final int SHARE_ID = Menu.FIRST + 3;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
-	private static final int ACTIVITY_GOTOITEMS = 2;
+	private static final int ACTIVITY_SHARE = 2;
+	private static final int ACTIVITY_GOTOITEMS = 3;
 
 	private Cursor listCursor;
 	
@@ -86,6 +88,7 @@ public class MainListActivity extends ListActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, DELETE_ID, 0, R.string.delete);
         menu.add(0, EDIT_ID, 0, R.string.edit);
+        menu.add(0, SHARE_ID, 0, R.string.share);
     }
 
     @Override
@@ -159,6 +162,16 @@ public class MainListActivity extends ListActivity {
         	        c.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)));
         	startActivityForResult(i, ACTIVITY_EDIT);
             return true;
+        case SHARE_ID:
+        	AdapterContextMenuInfo info3 = (AdapterContextMenuInfo) item.getMenuInfo();
+        	Cursor c2 = listCursor;
+        	c2.moveToPosition(info3.position);
+        	Intent i2 = new Intent(this, ListEditor.class);
+        	i2.putExtra(ListsDbAdapter.KEY_ROWID, info3.id);
+        	i2.putExtra(ListsDbAdapter.KEY_TITLE, c2.getString(
+        	        c2.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)));
+        	startActivityForResult(i2, ACTIVITY_SHARE);
+            return true;
         }
         return super.onContextItemSelected(item);
     }
@@ -190,6 +203,9 @@ public class MainListActivity extends ListActivity {
     	    }
     	    fillData();
     	    break;
+    	case ACTIVITY_SHARE:
+    		fillData();
+    		break;
     	case ACTIVITY_GOTOITEMS:
     		fillData();
     		break;
