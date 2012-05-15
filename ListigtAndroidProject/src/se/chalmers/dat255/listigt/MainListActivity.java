@@ -113,6 +113,7 @@ public class MainListActivity extends ListActivity {
         SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(lists);
+        listsDbAdapter.close();
     }
     
     /** Called to create a new list */

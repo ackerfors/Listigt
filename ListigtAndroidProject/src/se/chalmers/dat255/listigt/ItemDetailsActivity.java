@@ -30,7 +30,6 @@ public class ItemDetailsActivity extends Activity {
 	private Bundle extras;
 	private Cursor itemCursor;
 	
-	
 	/** 
      * Called when the activity is first created. 
      * Sets the layout, open the database and fills the view up with 

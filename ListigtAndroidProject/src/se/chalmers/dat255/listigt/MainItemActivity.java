@@ -114,6 +114,7 @@ public class MainItemActivity extends ListActivity {
         SimpleCursorAdapter items =
             new SimpleCursorAdapter(this, R.layout.items_row, itemCursor, from, to);
         setListAdapter(items);
+        itemDbAdapter.close();
     }
     
     /** 
@@ -125,6 +126,11 @@ public class MainItemActivity extends ListActivity {
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
+    private void clickHandler(View view){
+    	if(view.getId() == R.id.itemCheckBox){
+    	cursor.requery(); /* to get the updated values from sqlite on changing the check of checkbox*/
+    	}
+    }
     
     /**
      * This method runs when an activity that we started finishes and returns information
