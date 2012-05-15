@@ -1,0 +1,11 @@
+2012-05-15		Changelog Listigt Release v0.3.1		Erik Olesund	<olesund@student.chalmers.se>
+
+	* ListigtAndroidProject_v0.3.1.apk can be found in ../dist
+
+Changes in this version:
+    * Database connection implemented. Correct items are now displayed on each list
+    
+Known errors:
+	* The "book-state" is not saved in the database on each item
+	* Sharing-activity unimplemented
+	
