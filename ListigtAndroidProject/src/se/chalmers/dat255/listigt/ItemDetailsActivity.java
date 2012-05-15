@@ -1,7 +1,9 @@
 package se.chalmers.dat255.listigt;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -72,5 +74,18 @@ public class ItemDetailsActivity extends Activity {
     public void onBackPressed() {
     	setResult(RESULT_OK, getIntent());
     	finish();
+    }
+    
+    /**
+     * When the Edit-button is clicked, this method runs (set in item_details.xml)
+     */
+    public void editItem(View v){
+    	editButton.setBackgroundColor(Color.GREEN);    }
+    
+    /**
+     * When the Delete-button is clicked, this method runs (set in item_details.xml)
+     */
+    public void deleteItem(View v){
+    	deleteButton.setBackgroundColor(Color.GREEN);
     }
 }
