@@ -1,0 +1,14 @@
+2012-04-26		Changelog Listigt Release v0.20		Erik Olesund	<olesund@student.chalmers.se>
+
+	* ListigtAndroidProject.apk can be found in ../bin
+
+Changes in this version:
+    * All files: First release of app Listigt
+    * Create/edit/delet list or item
+    * Open list/item
+    * Connection to SQLite database
+    
+Known errors:
+	* Incorrect items are displayed when entering a list
+	* Sharing-activity unimplemented
+	* ItemDetails-activity unimplemented

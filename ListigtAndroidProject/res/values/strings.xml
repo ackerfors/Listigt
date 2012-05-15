@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, ListigtAndroidProjectActivity!</string>
-    <string name="app_name">ListigtAndroidProject</string>
-
+    <string name="app_name">Listigt v0.20</string>
+    <string name="no_content">No Content So Far</string>
+    <string name="menu_insert_list">Add List</string>
+    <string name="menu_insert_item">Add Item</string>
+    <string name="listEditCreateTitle">Edit or create list</string>
+    <string name="itemEditCreateTitle">Edit or create item</string>
+    <string name="title">Title</string>
+    <string name="confirm">Confirm</string>
+    <string name="description">Description</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    
 </resources>
