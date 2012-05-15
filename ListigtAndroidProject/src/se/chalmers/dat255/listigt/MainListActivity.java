@@ -113,7 +113,6 @@ public class MainListActivity extends ListActivity {
         SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(lists);
-        listsDbAdapter.close();
     }
     
     /** Called to create a new list */
@@ -131,7 +130,7 @@ public class MainListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, MainItemActivity.class);
-        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);//tror detta Šr FEL. Erik
+        i.putExtra(ListsDbAdapter.KEY_ROWID, id);
         startActivityForResult(i, ACTIVITY_GOTOITEMS);
     }
     
