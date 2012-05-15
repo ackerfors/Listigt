@@ -122,7 +122,7 @@ public class MainListActivity extends ListActivity {
     }
     
     /** Called when the "Add list"-button is pressed (from an empty view with no lists) */
-    public void addItemButtonPressed(View v){
+    public void addListButtonPressed(View v){
     	createList();
     }
     
