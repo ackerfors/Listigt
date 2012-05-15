@@ -1,6 +1,7 @@
 package se.chalmers.dat255.listigt;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -20,8 +21,9 @@ import android.widget.TextView;
 public class ItemDetailsActivity extends Activity {
 	private ItemsDbAdapter itemDbAdapter; 
 	private TextView itemTitle, itemDesc, itemStatus;
-	Long currentRowId;
-	Button editButton, deleteButton;
+	Long currentRowId, parentRowId;
+	Button editButton, bookButton, deleteButton;
+	Boolean status;
 	
 	
 	/** 
@@ -37,7 +39,9 @@ public class ItemDetailsActivity extends Activity {
 		itemStatus = (TextView) findViewById(R.id.itemStatusField);
 		editButton = (Button) findViewById(R.id.editButton);		//instantiate the buttons
 		editButton.setEnabled(true);
+		bookButton = (Button) findViewById(R.id.bookButton);
 		deleteButton = (Button) findViewById(R.id.deleteButton);
+		bookButton.setEnabled(true);
 		deleteButton.setEnabled(true);
         itemDbAdapter = new ItemsDbAdapter(this);					//Instantiate the database-adapter
         itemDbAdapter.open();										//open or create the database
@@ -49,21 +53,26 @@ public class ItemDetailsActivity extends Activity {
      */
     private void fillData() {
     	currentRowId = null;
+    	parentRowId = null;
 		Bundle extras = getIntent().getExtras(); 					// Returns any possible extras from the intent that might have been sent back to us.
 		if(extras!=null) {
-			 String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
-			 String desc = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
-			 String status;
-			 if(extras.getBoolean(ItemsDbAdapter.KEY_BOOKED)){
-				 status = "Booked";
-			 }
-			 else{
-				 status ="Unbooked";
-			 }
+			status = extras.getBoolean(ItemsDbAdapter.KEY_BOOKED);
+			String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
+			String desc = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
+			String statusText;
+			if(status){
+				statusText = "Booked";
+				bookButton.setEnabled(false);
+				deleteButton.setEnabled(false);
+			}
+			else{
+				statusText ="Unbooked";
+			}
 			 currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);
+			 parentRowId = extras.getLong(ItemsDbAdapter.KEY_PARENT);
 			 itemTitle.setText(title);								
 			 itemDesc.setText(desc);								
-			 itemStatus.setText(status);
+			 itemStatus.setText(statusText);
 		}	
     }
     /**
@@ -80,12 +89,21 @@ public class ItemDetailsActivity extends Activity {
      * When the Edit-button is clicked, this method runs (set in item_details.xml)
      */
     public void editItem(View v){
-    	editButton.setBackgroundColor(Color.GREEN);    }
+    	editButton.setBackgroundColor(Color.GREEN);
+    }
+    
+    /**
+     * When the Book-button is clicked, this method runs (set in item_details.xml)
+     */
+    public void bookItem(View v){
+    	editButton.setBackgroundColor(Color.GREEN);
+    }
     
     /**
      * When the Delete-button is clicked, this method runs (set in item_details.xml)
      */
     public void deleteItem(View v){
-    	deleteButton.setBackgroundColor(Color.GREEN);
+    	itemDbAdapter.deleteItem(currentRowId);
+    	onBackPressed();//Brings us back to where we came from
     }
 }
