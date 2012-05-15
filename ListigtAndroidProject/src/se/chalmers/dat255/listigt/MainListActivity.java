@@ -130,7 +130,7 @@ public class MainListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, MainItemActivity.class);
-        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
+        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);//tror detta Šr FEL. Erik
         startActivityForResult(i, ACTIVITY_GOTOITEMS);
     }
     

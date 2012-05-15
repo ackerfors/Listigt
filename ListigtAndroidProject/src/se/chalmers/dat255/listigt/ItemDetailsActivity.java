@@ -2,6 +2,7 @@ package se.chalmers.dat255.listigt;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +22,13 @@ import android.widget.TextView;
 public class ItemDetailsActivity extends Activity {
 	private ItemsDbAdapter itemDbAdapter; 
 	private TextView itemTitle, itemDesc, itemStatus;
-	Long currentRowId, parentRowId;
-	Button editButton, bookButton, deleteButton;
-	Boolean status;
+	private Long currentRowId;
+	private Button editButton, bookButton, deleteButton;
+	private Boolean status;
+	private String title, desc, statusText;
+	private static final int ACTIVITY_EDIT = 0;
+	private Bundle extras;
+	private Cursor itemCursor;
 	
 	
 	/** 
@@ -45,6 +50,8 @@ public class ItemDetailsActivity extends Activity {
 		deleteButton.setEnabled(true);
         itemDbAdapter = new ItemsDbAdapter(this);					//Instantiate the database-adapter
         itemDbAdapter.open();										//open or create the database
+        extras = getIntent().getExtras(); 							//Take care of anything that was sent to us
+        currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);	//Get the rowId for this item 
         fillData();													//calls internal method to fetch data from DB and load it onto our ListView
     }
     
@@ -52,14 +59,11 @@ public class ItemDetailsActivity extends Activity {
      * Fills the title and description fields up with data from the database.
      */
     private void fillData() {
-    	currentRowId = null;
-    	parentRowId = null;
-		Bundle extras = getIntent().getExtras(); 					// Returns any possible extras from the intent that might have been sent back to us.
-		if(extras!=null) {
-			status = extras.getBoolean(ItemsDbAdapter.KEY_BOOKED);
-			String title = extras.getString(ItemsDbAdapter.KEY_TITLE);
-			String desc = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
-			String statusText;
+    	itemCursor = itemDbAdapter.fetchItem(currentRowId);
+    	startManagingCursor(itemCursor);
+    	title = itemCursor.getString(itemCursor.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE));
+    	status = false;//Tillsvidare
+		desc = itemCursor.getString(itemCursor.getColumnIndexOrThrow(ItemsDbAdapter.KEY_DESCRIPTION));
 			if(status){
 				statusText = "Booked";
 				bookButton.setEnabled(false);
@@ -67,13 +71,10 @@ public class ItemDetailsActivity extends Activity {
 			}
 			else{
 				statusText ="Unbooked";
-			}
-			 currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);
-			 parentRowId = extras.getLong(ItemsDbAdapter.KEY_PARENT);
-			 itemTitle.setText(title);								
-			 itemDesc.setText(desc);								
-			 itemStatus.setText(statusText);
-		}	
+			}	
+		 itemTitle.setText(title);								
+		 itemDesc.setText(desc);								
+		 itemStatus.setText(statusText);
     }
     /**
      * When the back-key is pressed we simply return to the previous activity
@@ -89,14 +90,18 @@ public class ItemDetailsActivity extends Activity {
      * When the Edit-button is clicked, this method runs (set in item_details.xml)
      */
     public void editItem(View v){
-    	editButton.setBackgroundColor(Color.GREEN);
+    	Intent i = new Intent(this, ItemEditor.class);
+    	i.putExtra(ItemsDbAdapter.KEY_ROWID, currentRowId);
+    	i.putExtra(ItemsDbAdapter.KEY_TITLE, title);
+    	i.putExtra(ItemsDbAdapter.KEY_DESCRIPTION, desc);
+    	startActivityForResult(i, ACTIVITY_EDIT);
     }
     
     /**
      * When the Book-button is clicked, this method runs (set in item_details.xml)
      */
     public void bookItem(View v){
-    	editButton.setBackgroundColor(Color.GREEN);
+    	bookButton.setBackgroundColor(Color.GREEN);
     }
     
     /**
@@ -106,4 +111,28 @@ public class ItemDetailsActivity extends Activity {
     	itemDbAdapter.deleteItem(currentRowId);
     	onBackPressed();//Brings us back to where we came from
     }
+    /**
+     * This method runs when an activity that we started finishes and returns information
+     * 
+     * @param requestCode 
+     * @param resultCode
+     * @param intent 
+   	*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	super.onActivityResult(requestCode, resultCode, intent);
+    	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
+    	switch(requestCode) {
+    	case ACTIVITY_EDIT:
+    	    Long returnedRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);
+    	    if (returnedRowId != null) {
+    	        String updateTitle = extras.getString(ItemsDbAdapter.KEY_TITLE);
+    	        String updateDescription = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
+    	        itemDbAdapter.updateItem(returnedRowId, updateTitle, updateDescription);
+    	    }
+    	    fillData();
+    	    break;
+    	}
+    }
+    
 }

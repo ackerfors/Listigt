@@ -172,11 +172,7 @@ public class MainItemActivity extends ListActivity {
     	Cursor c = itemCursor;
     	c.moveToPosition(position);
     	Intent i = new Intent(this, ItemDetailsActivity.class);
-    	i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
-    	i.putExtra(ItemsDbAdapter.KEY_TITLE, c.getString(
-    	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE)));
-    	i.putExtra(ItemsDbAdapter.KEY_DESCRIPTION, c.getString(
-    	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_DESCRIPTION)));
+    	i.putExtra(ItemsDbAdapter.KEY_ROWID, id);//it's enough to send only the ID of the item to ItemDetailsActivity
     	startActivityForResult(i, ACTIVITY_DETAILS);
     }
     
@@ -199,6 +195,8 @@ public class MainItemActivity extends ListActivity {
         	Cursor c = itemCursor;
         	c.moveToPosition(info2.position);
         	Intent i = new Intent(this, ItemEditor.class);
+        	//When editing an item we must proved the ItemEditor-class
+        	//with ID, Title and Description for the Item
         	i.putExtra(ItemsDbAdapter.KEY_ROWID, info2.id);
         	i.putExtra(ItemsDbAdapter.KEY_TITLE, c.getString(
         	        c.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE)));
