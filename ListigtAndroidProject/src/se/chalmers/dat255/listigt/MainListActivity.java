@@ -166,7 +166,7 @@ public class MainListActivity extends ListActivity {
         	AdapterContextMenuInfo info3 = (AdapterContextMenuInfo) item.getMenuInfo();
         	Cursor c2 = listCursor;
         	c2.moveToPosition(info3.position);
-        	Intent i2 = new Intent(this, ListEditor.class);
+        	Intent i2 = new Intent(this, ShareListActivity.class);
         	i2.putExtra(ListsDbAdapter.KEY_ROWID, info3.id);
         	i2.putExtra(ListsDbAdapter.KEY_TITLE, c2.getString(
         	        c2.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)));
