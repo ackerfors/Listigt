@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -51,6 +52,7 @@ public class MainItemActivity extends ListActivity {
 	private static final int ACTIVITY_DETAILS = 2;
 	private static long LIST_ID;
     private Cursor itemCursor;
+    private Button addItemButton;
 
     /**  
      * Called when the activity is first created.
@@ -66,6 +68,8 @@ public class MainItemActivity extends ListActivity {
         itemDbAdapter = new ItemsDbAdapter(this);		//Construct the database-adapter
         itemDbAdapter.open();							//open or create the database
         registerForContextMenu(getListView());
+        addItemButton = (Button) findViewById(R.id.addItem);
+		addItemButton.setEnabled(true);
         fillData();										//calls internal method to fetch data from DB and load it onto our ListView
     }
 
@@ -211,6 +215,10 @@ public class MainItemActivity extends ListActivity {
             return true;
         }
         return super.onContextItemSelected(item);
+    }
+    
+    public void addItemButtonPressed(View v){
+    	createItem();
     }
     
     /**

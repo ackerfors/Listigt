@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Listigt v0.3.2</string>
-    <string name="no_content">No content so far. Click the menu button to add something!</string>
+    <string name="no_lists">No lists so far. Click the button to add one!</string>
+    <string name="no_items">No items so far. Click the button to add one!</string>
     <string name="menu_insert_list">Add List</string>
     <string name="menu_insert_item">Add Item</string>
     <string name="listEditCreateTitle">Edit or create list</string>

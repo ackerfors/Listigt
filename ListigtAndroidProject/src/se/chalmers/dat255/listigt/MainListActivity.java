@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -49,7 +50,7 @@ public class MainListActivity extends ListActivity {
 	private static final int ACTIVITY_EDIT = 1;
 	private static final int ACTIVITY_SHARE = 2;
 	private static final int ACTIVITY_GOTOITEMS = 3;
-
+	private Button addListButton;
 	private Cursor listCursor;
 	
 	
@@ -65,6 +66,8 @@ public class MainListActivity extends ListActivity {
         listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
         listsDbAdapter.open();//open or create the database
         registerForContextMenu(getListView());
+        addListButton = (Button) findViewById(R.id.addList);
+		addListButton.setEnabled(true);
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
     
@@ -116,6 +119,11 @@ public class MainListActivity extends ListActivity {
         SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(lists);
+    }
+    
+    /** Called when the "Add list"-button is pressed (from an empty view with no lists) */
+    public void addItemButtonPressed(View v){
+    	createList();
     }
     
     /** Called to create a new list */
