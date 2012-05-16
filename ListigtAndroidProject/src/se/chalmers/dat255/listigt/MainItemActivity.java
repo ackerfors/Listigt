@@ -229,4 +229,11 @@ public class MainItemActivity extends ListActivity {
     	setResult(RESULT_OK, getIntent());
     	finish();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (itemDbAdapter != null) {
+        	itemDbAdapter.close();
+        }
+    }
 }
