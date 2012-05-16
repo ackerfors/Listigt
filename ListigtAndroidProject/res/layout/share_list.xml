@@ -21,7 +21,9 @@
 			    android:id="@+id/emailField" 
 			  	android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
-				android:layout_weight="1"/>
+				android:layout_weight="1"
+				android:hint="@string/feedbackemail"  
+    			android:inputType="textEmailAddress" />
 		</LinearLayout>
 		<LinearLayout
 		    android:orientation="horizontal"
@@ -36,7 +38,8 @@
 			    android:id="@+id/subjectField" 
 			  	android:layout_width="fill_parent"
 				android:layout_height="wrap_content" 
-				android:layout_weight="1"/>
+				android:layout_weight="1"
+				android:hint="@string/optional"/>
 		</LinearLayout>
 			
 		<TextView style="@style/InfoText"
@@ -47,7 +50,8 @@
 		    android:id="@+id/messageField" 
 		  	android:layout_width="fill_parent"
 			android:layout_height="wrap_content" 
-			android:layout_weight="1"/>
+			android:layout_weight="1"
+			android:hint="@string/optional"/>
 	
 		<LinearLayout
 		    android:layout_width="fill_parent"
