@@ -26,15 +26,6 @@
 		    android:orientation="horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content">
-	
-			<TextView style="@style/InfoText"
-			    android:layout_width="wrap_content"
-				android:layout_height="wrap_content" 
-				android:text="@string/status" />
-			<TextView style="@style/ItemTitleDetails"
-			    android:id="@+id/itemStatusField" 
-			  	android:layout_width="fill_parent"
-				android:layout_height="wrap_content" />
 		</LinearLayout>
 			
 		<TextView style="@style/InfoText"

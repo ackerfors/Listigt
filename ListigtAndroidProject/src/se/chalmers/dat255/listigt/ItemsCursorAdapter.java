@@ -1,6 +1,5 @@
 package se.chalmers.dat255.listigt;
 
-import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -13,28 +12,26 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 /**
- * @author paac
+ * This class adds functionality to the class SimpleCursorAdapter
+ * It will get information about the current state of the checkboxes
+ * provided by the cursor parameter, and adds an OnClickListener
+ * on each checkbox that will trigger an update of the clicked
+ * checkbox state in the local SQLite database.
+ * 
+ * @author Ackerfors Crew
  *
  */
 public class ItemsCursorAdapter extends SimpleCursorAdapter {
 	private Cursor cursor;
 	private Context context;
-	private ArrayList<String> list = new ArrayList<String>();
-	private ArrayList<Boolean> itemChecked = new ArrayList<Boolean>();
 	private ItemsDbAdapter itemDbAdapter;
-
-	// itemChecked will store the position of the checked items.
 
 	public ItemsCursorAdapter(Context context, int layout, Cursor c, String[] from,
 			int[] to) {
 		super(context, layout, c, from, to);
 		cursor = c;
 		this.context = context;
-		
-
-		for (int i = 0; i < this.getCount(); i++) {
-			itemChecked.add(i, false); // Initialises all items value with false
-		}
+		itemDbAdapter = new ItemsDbAdapter(context);
 	}
 
 	public View getView(final int pos, View inView, ViewGroup parent) {
@@ -43,69 +40,41 @@ public class ItemsCursorAdapter extends SimpleCursorAdapter {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			inView = inflater.inflate(R.layout.items_row, null);
 		}
-
-		//Log.i("position", "pos = " + pos);
 		cursor.moveToPosition(pos);
-		CheckBox cBox = (CheckBox) inView.findViewById(R.id.itemCheckBox);
-		cBox.setTag(cursor.getInt(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID)));
-
-		int idTag = (Integer) cBox.getTag();
-		//Log.i("Checkbox ID","Checkbox ID tag = " + idTag);
+		CheckBox checkBox = (CheckBox) inView.findViewById(R.id.itemCheckBox);
+		checkBox.setTag(cursor.getInt(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID)));
 
 		int checked = cursor.getInt(cursor.getColumnIndex(ItemsDbAdapter.KEY_BOOKED));
 
 		//Log.i("selectBooked", "Checked value = " + checked);
 		if (checked == 1) {
-			cBox.setChecked(true);          
+			checkBox.setChecked(true);          
 		} else {
-			cBox.setChecked(false);
+			checkBox.setChecked(false);
 		}
 
-		cBox.setOnClickListener(new OnClickListener() {  
+		checkBox.setOnClickListener(new OnClickListener() {  
 			public void onClick(View v) {
-				
-				itemDbAdapter = new ItemsDbAdapter(context);
 				itemDbAdapter.open();
 				CheckBox cBox = (CheckBox) v.findViewById(R.id.itemCheckBox);
 				if (cBox.isChecked()) {
-					//cBox.setChecked(false);
-					
 					// Update the database for each checked item
-					//Long rowID = cursor.getLong(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID));
-					int intId = (Integer) cBox.getTag();
-					long longId = (long) intId;
-					Long booked = (long) 1;
-					itemDbAdapter.updateBooking( intId, booked);
+					int id = (Integer) cBox.getTag();
+					itemDbAdapter.updateBooking( id, 1);
 					cursor.requery();
-
-					// Verify that the db was updated for debugging purposes
-					//String event = c.getString(c.getColumnIndex("event"));                  
-					
-
-					Log.i("checked _id", "id= " + longId + " " + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID))); 
+					Log.i("checked _id", "id= " + id + " " + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID))); 
 					Log.i("checked checked", "" + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_BOOKED)));
 
 				} else if (!cBox.isChecked()) {
-					//cBox.setChecked(true);
-					
-					// checkList.remove(cBox.getTag());
-					//checkList.add((Integer) cBox.getTag());
-					//String event = cursor.getString(cursor.getColumnIndex("event"));
-					//Long rowID = cursor.getLong(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID));
-					int intId = (Integer) cBox.getTag();
-					long longId = (long) intId;
-					Long unBooked = (long) 0;
-					itemDbAdapter.updateBooking( intId, unBooked);
+					int id = (Integer) cBox.getTag();
+					itemDbAdapter.updateBooking( id, 0);
 					cursor.requery();
-					//int sqlresult = mDbHelper.selectChk(id, event);                   
-					//Log.i("sqlresult checked value after update...........", ""+ sqlresult);                  
-					//Log.i("unchecked _id...........", ""+c.getString(c.getColumnIndex("_id"))); 
-					//Log.i("unchecked checked...........", ""+c.getString(c.getColumnIndex("checked")));
 				}
 				itemDbAdapter.close();
 			}
 		});
 
+		//Set the title on each row.
 		TextView itemTitle = (TextView) inView.findViewById(R.id.itemRowTitle);
 		itemTitle.setText(cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_TITLE)));
 

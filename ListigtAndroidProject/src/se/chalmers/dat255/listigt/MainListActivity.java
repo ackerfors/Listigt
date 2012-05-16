@@ -219,6 +219,10 @@ public class MainListActivity extends ListActivity {
     		break;
     	}
     }
+    
+    /**
+     * Closes the database adapter when the activity seize to exist.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
