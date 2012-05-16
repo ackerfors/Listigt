@@ -52,7 +52,9 @@ public class MainItemActivity extends ListActivity {
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
 	private static final int ACTIVITY_DETAILS = 2;
+	private static final int ACTIVITY_SHARE = 3;
 	private static long LIST_ID;
+	private static String LIST_TITLE;
     private Cursor itemCursor;
     private Button addItemButton;
 
@@ -66,12 +68,14 @@ public class MainItemActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();		//take care of the extras the activity may have sent back to us
     	LIST_ID = extras.getLong("_id");
+    	LIST_TITLE = extras.getString(ListsDbAdapter.KEY_TITLE);
         setContentView(R.layout.main_items); 			//Sets the layout to the one we specified in res/layout/
         itemDbAdapter = new ItemsDbAdapter(this);		//Construct the database-adapter
         itemDbAdapter.open();							//open or create the database
         registerForContextMenu(getListView());
         addItemButton = (Button) findViewById(R.id.addItem);
 		addItemButton.setEnabled(true);
+		setTitle(LIST_TITLE);
         fillData();										//calls internal method to fetch data from DB and load it onto our ListView
     }
 
@@ -139,7 +143,10 @@ public class MainItemActivity extends ListActivity {
      * Called to share the list
      */
     private void shareList(){
-    	//TODO: IMPLEMENT
+    	Intent i = new Intent(this, ShareListActivity.class);
+    	i.putExtra(ListsDbAdapter.KEY_ROWID, LIST_ID);
+    	i.putExtra(ListsDbAdapter.KEY_TITLE, LIST_TITLE);
+    	startActivityForResult(i, ACTIVITY_SHARE);
     }
     
     /**
@@ -172,6 +179,9 @@ public class MainItemActivity extends ListActivity {
     	    fillData();
     	    break;
     	case ACTIVITY_DETAILS:
+    		fillData();
+    		break;
+    	case ACTIVITY_SHARE:
     		fillData();
     		break;
     	}
