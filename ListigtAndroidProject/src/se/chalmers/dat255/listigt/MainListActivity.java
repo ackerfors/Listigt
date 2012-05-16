@@ -113,7 +113,7 @@ public class MainListActivity extends ListActivity {
         SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(lists);
-        listsDbAdapter.close();
+        //listsDbAdapter.close();
     }
     
     /** Called to create a new list */
@@ -195,5 +195,13 @@ public class MainListActivity extends ListActivity {
     		fillData();
     		break;
     	}
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (listsDbAdapter != null) {
+        	listsDbAdapter.close();
+        }
     }
 }

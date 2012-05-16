@@ -51,6 +51,7 @@ public class MainItemActivity extends ListActivity {
 	private static final int ACTIVITY_DETAILS = 2;
 	private static long LIST_ID;
     private Cursor itemCursor;
+    private Cursor bookedCursor;
 
     /**  
      * Called when the activity is first created.
@@ -105,32 +106,38 @@ public class MainItemActivity extends ListActivity {
      */
     private void fillData(){
         itemCursor = itemDbAdapter.fetchAllItemsFromList(LIST_ID);
+        
         startManagingCursor(itemCursor);
 
         String[] from = new String[] { ItemsDbAdapter.KEY_TITLE };
         int[] to = new int[] { R.id.itemRowTitle };
         
         // Creates an array adapter and set it to display using our row
-        SimpleCursorAdapter items =
-            new SimpleCursorAdapter(this, R.layout.items_row, itemCursor, from, to);
+        SimpleCursorAdapter items = new SimpleCursorAdapter(this, R.layout.items_row, itemCursor, from, to);
+        
         setListAdapter(items);
-        itemDbAdapter.close();
     }
     
     /** 
      * Called to create a new item.
      * 
      * */
-    private void createItem(){
+    private void createItem() {
     	Intent i = new Intent(this, ItemEditor.class);
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
-    private void clickHandler(View view){
-    	if(view.getId() == R.id.itemCheckBox){
-    	cursor.requery(); /* to get the updated values from sqlite on changing the check of checkbox*/
-    	}
-    }
+    
+    /*public void clickHandler(View view) {
+    	//int rowID = view.getId();
+    	//System.out.println("clickHandler rowID = " + rowID);
+    	if(isChecked){
+			itemDbAdapter.updateBooking(rowID, 1);
+		} else if(!isChecked) {
+			itemDbAdapter.updateBooking(rowID, 0);
+		}
+    	fillData();
+    }*/
     
     /**
      * This method runs when an activity that we started finishes and returns information
@@ -175,6 +182,7 @@ public class MainItemActivity extends ListActivity {
    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        System.out.println("id from onListItemClick is = " + id);
     	Cursor c = itemCursor;
     	c.moveToPosition(position);
     	Intent i = new Intent(this, ItemDetailsActivity.class);
@@ -224,5 +232,13 @@ public class MainItemActivity extends ListActivity {
     public void onBackPressed() {
     	setResult(RESULT_OK, getIntent());
     	finish();
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (itemDbAdapter != null) {
+        	itemDbAdapter.close();
+        }
     }
 }
