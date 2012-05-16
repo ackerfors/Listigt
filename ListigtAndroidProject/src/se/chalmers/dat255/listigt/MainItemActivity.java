@@ -48,6 +48,7 @@ public class MainItemActivity extends ListActivity {
     public static final int INSERT_ITEM_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
     private static final int EDIT_ID = Menu.FIRST + 2;
+    private static final int SHARE_LIST_ID = Menu.FIRST + 3;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
 	private static final int ACTIVITY_DETAILS = 2;
@@ -85,6 +86,7 @@ public class MainItemActivity extends ListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
         menu.add(0, INSERT_ITEM_ID, 0, R.string.menu_insert_item);
+        menu.add(0, SHARE_LIST_ID, 0, R.string.share);
         return result;
     }
     
@@ -106,6 +108,9 @@ public class MainItemActivity extends ListActivity {
     	case INSERT_ITEM_ID:			//if the "Add Item"-button was clicked
     		createItem();				//then call internal method to create a new item
     		return true;				//and return true because the operation was successful
+    	case SHARE_LIST_ID:
+    		shareList();
+    		return true;
     	}
     	return super.onOptionsItemSelected(item);
     }
@@ -137,10 +142,12 @@ public class MainItemActivity extends ListActivity {
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
-//    public void clickHandler(View view){
-//    	final int checkBoxPosition = getListView().getPositionForView(view)+1;
-//    		System.out.println(checkBoxPosition);
-//    }
+    /**
+     * Called to share the list
+     */
+    private void shareList(){
+    	//TODO: IMPLEMENT
+    }
     
     /**
      * This method runs when an activity that we started finishes and returns information
