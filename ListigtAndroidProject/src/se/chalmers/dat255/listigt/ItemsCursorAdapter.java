@@ -53,12 +53,12 @@ public class ItemsCursorAdapter extends SimpleCursorAdapter {
 	    Log.i("Checkbox ID","Checkbox ID tag = " + idTag);
 	    //int checked = mDbHelper.selectBooked(idTag);
 	    
-	    Log.i("results from selectChk.....................", ""+checked);
-	    if (checked == 1) {
-	        cBox.setChecked(true);          
-	    } else {
-	        cBox.setChecked(false);
-	    }
+//	    Log.i("results from selectChk.....................", ""+checked);
+//	    if (checked == 1) {
+//	        cBox.setChecked(true);          
+//	    } else {
+//	        cBox.setChecked(false);
+//	    }
 	    
 	    TextView itemTitle = (TextView) inView.findViewById(R.id.itemRowTitle);
 	    itemTitle.setText(cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_TITLE)));
