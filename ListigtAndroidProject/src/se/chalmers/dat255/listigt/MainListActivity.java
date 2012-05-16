@@ -64,7 +64,6 @@ public class MainListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_list); //Sets the layout to the one we specified in res/layout
         listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
-        listsDbAdapter.open();//open or create the database
         registerForContextMenu(getListView());
         addListButton = (Button) findViewById(R.id.addList);
 		addListButton.setEnabled(true);
@@ -109,6 +108,7 @@ public class MainListActivity extends ListActivity {
      * load it onto our ListView.
      */
     private void fillData(){
+    	listsDbAdapter.open();
         listCursor = listsDbAdapter.fetchAllLists();
         startManagingCursor(listCursor);
 
@@ -119,6 +119,7 @@ public class MainListActivity extends ListActivity {
         SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(lists);
+        listsDbAdapter.close();
     }
     
     /** Called when the "Add list"-button is pressed (from an empty view with no lists) */
@@ -154,6 +155,7 @@ public class MainListActivity extends ListActivity {
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+    	listsDbAdapter.open();
         switch(item.getItemId()) {
         case DELETE_ID:
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -181,6 +183,7 @@ public class MainListActivity extends ListActivity {
         	startActivityForResult(i2, ACTIVITY_SHARE);
             return true;
         }
+        listsDbAdapter.close();
         return super.onContextItemSelected(item);
     }
     
@@ -195,6 +198,7 @@ public class MainListActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
+    	listsDbAdapter.open();
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
     	    if(extras != null){
@@ -218,6 +222,7 @@ public class MainListActivity extends ListActivity {
     		fillData();
     		break;
     	}
+    	listsDbAdapter.close();
     }
     
     /**
