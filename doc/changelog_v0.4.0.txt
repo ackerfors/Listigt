@@ -1,0 +1,9 @@
+2012-05-16		Changelog Listigt Release v0.4.0		Erik Olesund	<olesund@student.chalmers.se>
+
+	* ListigtAndroidProject_v0.4.0.apk can be found in ../dist
+
+Changes in this version:
+    * Database connection implemented. Correct items are now displayed on each list
+    * Checkbox functionallity implemented
+    * Sharing functionallity via email implemented
+    * All design elements correct
