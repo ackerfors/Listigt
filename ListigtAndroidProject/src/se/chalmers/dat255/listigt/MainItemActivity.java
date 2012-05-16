@@ -71,14 +71,7 @@ public class MainItemActivity extends ListActivity {
         registerForContextMenu(getListView());
         addItemButton = (Button) findViewById(R.id.addItem);
 		addItemButton.setEnabled(true);
-        fillData();//calls internal method to fetch data from DB and load it onto our ListView
-//        CheckedTextView chkBox = (CheckedTextView) findViewById(R.id.itemRow);
-//        chkBox.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v)
-//            {
-//                ((CheckedTextView) v).toggle();
-//            }
-//        });
+        fillData();										//calls internal method to fetch data from DB and load it onto our ListView
     }
 
     @Override
@@ -237,6 +230,10 @@ public class MainItemActivity extends ListActivity {
     	setResult(RESULT_OK, getIntent());
     	finish();
     }
+    
+    /**
+     * Closes the database adapter when the activity seize to exist.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

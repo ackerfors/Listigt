@@ -3,7 +3,10 @@ package se.chalmers.dat255.listigt;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.PorterDuff;
 import android.graphics.Color;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +24,10 @@ import android.widget.TextView;
  */
 public class ItemDetailsActivity extends Activity {
 	private ItemsDbAdapter itemDbAdapter; 
-	private TextView itemTitle, itemDesc, itemStatus;
+	private TextView itemTitle, itemDesc;
 	private Long currentRowId;
 	private Button editButton, bookButton, deleteButton;
-	private Boolean status;
-	private String title, desc, statusText;
+	private String title, desc;
 	private static final int ACTIVITY_EDIT = 0;
 	private Bundle extras;
 	private Cursor itemCursor;
@@ -40,7 +42,6 @@ public class ItemDetailsActivity extends Activity {
         setContentView(R.layout.item_details); 						//Sets the layout to the one we specified in res/layout/
         itemTitle = (TextView) findViewById(R.id.itemTitleField);	//instantiate the text fields	
 		itemDesc = (TextView) findViewById(R.id.itemDescField);
-		itemStatus = (TextView) findViewById(R.id.itemStatusField);
 		editButton = (Button) findViewById(R.id.editButton);		//instantiate the buttons
 		editButton.setEnabled(true);
 		bookButton = (Button) findViewById(R.id.bookButton);
@@ -48,9 +49,17 @@ public class ItemDetailsActivity extends Activity {
 		bookButton.setEnabled(true);
 		deleteButton.setEnabled(true);
         itemDbAdapter = new ItemsDbAdapter(this);					//Instantiate the database-adapter
-        itemDbAdapter.open();										//open or create the database
         extras = getIntent().getExtras(); 							//Take care of anything that was sent to us
-        currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);	//Get the rowId for this item 
+        currentRowId = extras.getLong(ItemsDbAdapter.KEY_ROWID);	//Get the rowId for this item
+        
+        Drawable d1 = findViewById(R.id.deleteButton).getBackground();  
+        PorterDuffColorFilter filter1 = new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);  
+        d1.setColorFilter(filter1); 
+        
+        Drawable d2 = findViewById(R.id.editButton).getBackground();  
+        PorterDuffColorFilter filter2 = new PorterDuffColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);  
+        d2.setColorFilter(filter2);
+        
         fillData();													//calls internal method to fetch data from DB and load it onto our ListView
     }
     
@@ -58,23 +67,25 @@ public class ItemDetailsActivity extends Activity {
      * Fills the title and description fields up with data from the database.
      */
     private void fillData() {
+    	itemDbAdapter.open();
     	itemCursor = itemDbAdapter.fetchItem(currentRowId);
     	startManagingCursor(itemCursor);
     	title = itemCursor.getString(itemCursor.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE));
-    	status = false;//Tillsvidare
 		desc = itemCursor.getString(itemCursor.getColumnIndexOrThrow(ItemsDbAdapter.KEY_DESCRIPTION));
-			if(status){
-				statusText = "Booked";
-				bookButton.setEnabled(false);
-				deleteButton.setEnabled(false);
-			}
-			else{
-				statusText ="Unbooked";
+		int bookingStatus = itemCursor.getInt(itemCursor.getColumnIndexOrThrow(ItemsDbAdapter.KEY_BOOKED));
+			if(bookingStatus == 1){
+				Drawable d = findViewById(R.id.bookButton).getBackground();  
+	            PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);  
+	            d.setColorFilter(filter); 
+				bookButton.setText("Booked");
+			} else {
+				bookButton.setText("Book");
 			}	
 		 itemTitle.setText(title);								
 		 itemDesc.setText(desc);								
-		 itemStatus.setText(statusText);
+		 itemDbAdapter.close();
     }
+    
     /**
      * When the back-key is pressed we simply return to the previous activity
      * with the same Intent (no data changed)
@@ -100,7 +111,25 @@ public class ItemDetailsActivity extends Activity {
      * When the Book-button is clicked, this method runs (set in item_details.xml)
      */
     public void bookItem(View v){
-    	bookButton.setBackgroundColor(Color.GREEN);
+    	if(bookButton.getText().toString() == "Booked") {
+    		Drawable d = findViewById(R.id.bookButton).getBackground();  
+            findViewById(R.id.bookButton).invalidateDrawable(d);  
+            d.clearColorFilter();
+            System.out.println("bookItem executed");
+            bookButton.setText("Book");
+            itemDbAdapter.open();
+            itemDbAdapter.updateBooking(currentRowId, 0);
+            itemCursor.close();
+    	} else {
+    		Drawable d = findViewById(R.id.bookButton).getBackground();  
+            PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);  
+            d.setColorFilter(filter);
+            bookButton.setText("Booked");
+            itemDbAdapter.open();
+            itemDbAdapter.updateBooking(currentRowId, 1);
+            itemCursor.close();
+    	}
+    	fillData();
     }
     
     /**
