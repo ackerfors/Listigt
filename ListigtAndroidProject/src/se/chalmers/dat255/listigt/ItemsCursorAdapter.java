@@ -46,7 +46,6 @@ public class ItemsCursorAdapter extends SimpleCursorAdapter {
 
 		int checked = cursor.getInt(cursor.getColumnIndex(ItemsDbAdapter.KEY_BOOKED));
 
-		//Log.i("selectBooked", "Checked value = " + checked);
 		if (checked == 1) {
 			checkBox.setChecked(true);          
 		} else {
@@ -56,19 +55,15 @@ public class ItemsCursorAdapter extends SimpleCursorAdapter {
 		checkBox.setOnClickListener(new OnClickListener() {  
 			public void onClick(View v) {
 				itemDbAdapter.open();
-				CheckBox cBox = (CheckBox) v.findViewById(R.id.itemCheckBox);
-				if (cBox.isChecked()) {
+				CheckBox checkBox = (CheckBox) v.findViewById(R.id.itemCheckBox);
+				if (checkBox.isChecked()) {
 					// Update the database for each checked item
-					int id = (Integer) cBox.getTag();
+					int id = (Integer) checkBox.getTag();
 					itemDbAdapter.updateBooking( id, 1);
-					cursor.requery();
-					Log.i("checked _id", "id= " + id + " " + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID))); 
-					Log.i("checked checked", "" + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_BOOKED)));
-
-				} else if (!cBox.isChecked()) {
-					int id = (Integer) cBox.getTag();
+				} else if (!checkBox.isChecked()) {
+					int id = (Integer) checkBox.getTag();
 					itemDbAdapter.updateBooking( id, 0);
-					cursor.requery();
+					//cursor.requery();
 				}
 				itemDbAdapter.close();
 			}
