@@ -5,6 +5,7 @@ import java.util.List;
 import javax.mail.SendFailedException;
 import jon.simon.mail.Mail;
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,9 +21,12 @@ import android.widget.Toast;
  */
 public class ShareListActivity extends Activity{
 	private EditText email, subject, message;
-	private Long currentRowId;
+	private static Long LIST_ID;
 	private Button sendButton;
 	private Bundle extras;
+	private String listTitle;
+	private ItemsDbAdapter itemDbAdapter;
+	private Cursor itemCursor;
 	
 	/** 
      * Called when the activity is first created. 
@@ -38,8 +42,10 @@ public class ShareListActivity extends Activity{
 		sendButton = (Button) findViewById(R.id.sendButton);
 		//send button per default enabled
 		sendButton.setEnabled(true);
+		itemDbAdapter = new ItemsDbAdapter(this);
 		extras = getIntent().getExtras();
-		currentRowId = extras.getLong(ListsDbAdapter.KEY_ROWID);
+		LIST_ID = extras.getLong(ListsDbAdapter.KEY_ROWID);
+		listTitle = extras.getString(ListsDbAdapter.KEY_TITLE);
 	}
 	
 	/**
@@ -66,9 +72,8 @@ public class ShareListActivity extends Activity{
         m.setTo(emailArr); 
         m.setFrom("listigtapp@gmail.com");//has to be an e-mail adress 
         m.setSubject("List from Listigt: " + subjectString);
-        m.setBody("Message from the creator: " + messageString + getList(currentRowId));
-        System.out.println("TO ARR: " + Arrays.toString(emailArr) + " // emailString: " + emailString);
-        System.out.println(getList(currentRowId));
+        m.setBody("Message from the creator: \n" + messageString + "\n\nList title: " + listTitle + "\n\nItems in list:\n" + getItems(LIST_ID));
+        System.out.println(getItems(LIST_ID));
         try {  
    
           if(m.send()) { 
@@ -86,9 +91,20 @@ public class ShareListActivity extends Activity{
     /**
      * Get the list title and all its items from the database
      */
-    private String getList(long listid){
-    	String theList = "LIST-ID: " + listid;
-    	return theList;
+    private String getItems(long listid){
+    	String theItems = "";
+    	itemDbAdapter.open();
+    	itemCursor = itemDbAdapter.fetchAllItemsFromList(LIST_ID);
+        startManagingCursor(itemCursor);
+        int cursorRows = itemCursor.getCount();
+        
+        for ( int i = 0; i < cursorRows; i++) {
+        	itemCursor.moveToPosition(i);
+        	String title = itemCursor.getString(itemCursor.getColumnIndexOrThrow(ItemsDbAdapter.KEY_TITLE));
+        	theItems = theItems + title + "\n";
+        }
+    	itemDbAdapter.close();
+    	return theItems;
     }
 }
 	
