@@ -141,8 +141,12 @@ public class MainListActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+    	Cursor c = listCursor;
+    	c.moveToPosition(position);
         Intent i = new Intent(this, MainItemActivity.class);
         i.putExtra(ListsDbAdapter.KEY_ROWID, id);
+        i.putExtra(ListsDbAdapter.KEY_TITLE, c.getString(
+    	        c.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)) );
         startActivityForResult(i, ACTIVITY_GOTOITEMS);
     }
     
