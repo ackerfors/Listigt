@@ -2,12 +2,10 @@ package se.chalmers.dat255.listigt;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.mail.SendFailedException;
 import jon.simon.mail.Mail;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;

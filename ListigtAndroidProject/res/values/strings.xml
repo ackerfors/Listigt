@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Listigt v0.3.2</string>
+    <string name="app_name">Listigt</string>
     <string name="no_lists">No lists so far. Click the button to add one!</string>
     <string name="no_items">No items so far. Click the button to add one!</string>
     <string name="menu_insert_list">Add List</string>
