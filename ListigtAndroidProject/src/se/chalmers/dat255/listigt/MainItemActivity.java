@@ -129,10 +129,9 @@ public class MainItemActivity extends ListActivity {
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
-    private void clickHandler(View view){
-    	//if(view.getId() == R.id.itemCheckBox){
-    	//cursor.requery(); /* to get the updated values from sqlite on changing the check of checkbox*/
-    	//}
+    public void clickHandler(View view){
+    	final int checkBoxPosition = getListView().getPositionForView(view)+1;
+    		System.out.println(checkBoxPosition);
     }
     
     /**
