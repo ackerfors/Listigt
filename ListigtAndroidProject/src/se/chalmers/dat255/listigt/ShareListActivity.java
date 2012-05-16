@@ -1,11 +1,9 @@
 package se.chalmers.dat255.listigt;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.mail.SendFailedException;
-
+import jon.simon.mail.Mail;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;

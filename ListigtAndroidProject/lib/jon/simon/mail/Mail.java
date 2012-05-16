@@ -4,7 +4,7 @@
  * Based on:
  * http://www.jondev.net/articles/Sending_Emails_without_User_Intervention_(no_Intents)_in_Android
  */
-package se.chalmers.dat255.listigt;
+package jon.simon.mail;
 
 import java.util.Date; 
 import java.util.Properties; 
