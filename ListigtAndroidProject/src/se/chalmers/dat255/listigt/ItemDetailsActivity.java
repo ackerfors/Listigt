@@ -126,7 +126,7 @@ public class ItemDetailsActivity extends Activity {
             bookButton.setText("Booked");
             itemDbAdapter.updateBooking(currentRowId, 1);
     	}
-    	itemCursor.close();
+    	itemDbAdapter.close();
     	fillData();
     }
     

@@ -2,7 +2,6 @@ package se.chalmers.dat255.listigt;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,14 +60,9 @@ public class ItemsCursorAdapter extends SimpleCursorAdapter {
 					// Update the database for each checked item
 					int id = (Integer) cBox.getTag();
 					itemDbAdapter.updateBooking( id, 1);
-					cursor.requery();
-					Log.i("checked _id", "id= " + id + " " + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_ROWID))); 
-					Log.i("checked checked", "" + cursor.getString(cursor.getColumnIndex(ItemsDbAdapter.KEY_BOOKED)));
-
 				} else if (!cBox.isChecked()) {
 					int id = (Integer) cBox.getTag();
 					itemDbAdapter.updateBooking( id, 0);
-					cursor.requery();
 				}
 				itemDbAdapter.close();
 			}

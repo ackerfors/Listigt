@@ -37,7 +37,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * the activity of populating the initial screen of this application
  * with a list of lists.
  * 
- * @author Patrik Ackerfors
+ * @author Ackerfors Crew
  *
  */
 public class MainListActivity extends ListActivity {
@@ -227,16 +227,5 @@ public class MainListActivity extends ListActivity {
     		break;
     	}
     	listsDbAdapter.close();
-    }
-    
-    /**
-     * Closes the database adapter when the activity seize to exist.
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (listsDbAdapter != null) {
-        	listsDbAdapter.close();
-        }
     }
 }
