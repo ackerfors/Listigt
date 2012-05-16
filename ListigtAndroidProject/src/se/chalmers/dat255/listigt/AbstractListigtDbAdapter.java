@@ -59,7 +59,9 @@ public abstract class AbstractListigtDbAdapter {
      * Closes the InnerSQLOpenHelper and database connection.
      */
     public void close() {
-    	innerDbHelpder.close();
+    	if (innerDbHelpder != null) {
+    		innerDbHelpder.close();
+    	}
     }
     
     /**

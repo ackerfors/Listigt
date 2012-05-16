@@ -137,10 +137,10 @@ public class MainItemActivity extends ListActivity {
     	startActivityForResult(i, ACTIVITY_CREATE);	
     }
     
-    public void clickHandler(View view){
-    	final int checkBoxPosition = getListView().getPositionForView(view)+1;
-    		System.out.println(checkBoxPosition);
-    }
+//    public void clickHandler(View view){
+//    	final int checkBoxPosition = getListView().getPositionForView(view)+1;
+//    		System.out.println(checkBoxPosition);
+//    }
     
     /**
      * This method runs when an activity that we started finishes and returns information
