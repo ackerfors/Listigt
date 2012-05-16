@@ -111,24 +111,22 @@ public class ItemDetailsActivity extends Activity {
      * When the Book-button is clicked, this method runs (set in item_details.xml)
      */
     public void bookItem(View v){
+    	itemDbAdapter.open();
     	if(bookButton.getText().toString() == "Booked") {
     		Drawable d = findViewById(R.id.bookButton).getBackground();  
             findViewById(R.id.bookButton).invalidateDrawable(d);  
             d.clearColorFilter();
             System.out.println("bookItem executed");
             bookButton.setText("Book");
-            itemDbAdapter.open();
             itemDbAdapter.updateBooking(currentRowId, 0);
-            itemCursor.close();
     	} else {
     		Drawable d = findViewById(R.id.bookButton).getBackground();  
             PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);  
             d.setColorFilter(filter);
             bookButton.setText("Booked");
-            itemDbAdapter.open();
             itemDbAdapter.updateBooking(currentRowId, 1);
-            itemCursor.close();
     	}
+    	itemCursor.close();
     	fillData();
     }
     
