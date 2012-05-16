@@ -70,14 +70,14 @@ public class ShareListActivity extends Activity{
     	String messageString = message.getText().toString();
         String[] toArr = {emailString, "erik@olesund.se"}; 
         m.setTo(toArr); 
-        m.setFrom("listigtapp@gmail.com"); 
+        m.setFrom("listigtapp@gmail.com");//has to be the e-mail adress 
         m.setSubject(subjectString);
         m.setBody(messageString);
    
         try {  
    
           if(m.send()) { 
-            Toast.makeText(ShareListActivity.this, "Email was sent successfully.", Toast.LENGTH_LONG).show(); 
+            Toast.makeText(ShareListActivity.this, "Your list was shared successfully!", Toast.LENGTH_LONG).show(); 
           } else { 
             Toast.makeText(ShareListActivity.this, "Email was not sent.", Toast.LENGTH_LONG).show(); 
           } 

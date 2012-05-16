@@ -14,7 +14,7 @@
             android:name=".MainListActivity"
             android:label="Your lists" 
             android:theme="@style/ListigtTheme">
-            <intent-filter>
+            <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
