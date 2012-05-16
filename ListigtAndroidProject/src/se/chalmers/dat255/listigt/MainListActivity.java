@@ -219,4 +219,11 @@ public class MainListActivity extends ListActivity {
     		break;
     	}
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (listsDbAdapter != null) {
+        	listsDbAdapter.close();
+        }
+    }
 }

@@ -177,7 +177,6 @@ public class MainItemActivity extends ListActivity {
    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        System.out.println("ID: " + id + " // POS: " + position);
     	Cursor c = itemCursor;
     	c.moveToPosition(position);
     	Intent i = new Intent(this, ItemDetailsActivity.class);

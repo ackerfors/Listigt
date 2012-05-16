@@ -109,6 +109,23 @@ public class ItemsDbAdapter extends AbstractListigtDbAdapter {
     }
     
     /**
+     * Update the item if it is booked (1) or not (0).
+     * specified using the rowId.
+     * 
+     * @param rowId id of note to update
+     * @param title value to set note title to
+     * @param description value to set note body to
+     * @return true if the note was successfully updated, false otherwise
+     */
+    public boolean updateBooking(long rowId, long booked) {
+        ContentValues argumentValues = new ContentValues();
+        argumentValues.put(KEY_BOOKED, booked);
+
+        System.out.println("updateBooking executed with rowID = " + rowId + " and booked = " + booked );
+        return sqlLiteDb.update(DATABASE_TABLE, argumentValues, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+    
+    /**
      * Update the item using the provided title and description. The item to be updated is
      * specified using the rowId.
      * 
