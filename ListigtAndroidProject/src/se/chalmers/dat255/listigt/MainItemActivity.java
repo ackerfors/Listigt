@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -70,7 +71,14 @@ public class MainItemActivity extends ListActivity {
         registerForContextMenu(getListView());
         addItemButton = (Button) findViewById(R.id.addItem);
 		addItemButton.setEnabled(true);
-        fillData();										//calls internal method to fetch data from DB and load it onto our ListView
+        fillData();//calls internal method to fetch data from DB and load it onto our ListView
+//        CheckedTextView chkBox = (CheckedTextView) findViewById(R.id.itemRow);
+//        chkBox.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v)
+//            {
+//                ((CheckedTextView) v).toggle();
+//            }
+//        });
     }
 
     @Override
@@ -115,8 +123,8 @@ public class MainItemActivity extends ListActivity {
         int[] to = new int[] { R.id.itemRowTitle };
         
         // Creates an array adapter and set it to display using our row
-        SimpleCursorAdapter items =
-            new SimpleCursorAdapter(this, R.layout.items_row, itemCursor, from, to);
+        ItemsCursorAdapter items =
+            new ItemsCursorAdapter(this, R.layout.items_row, itemCursor, from, to);
         setListAdapter(items);
     }
     
