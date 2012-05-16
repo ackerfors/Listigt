@@ -74,14 +74,14 @@ public class ShareListActivity extends Activity{
             Toast.makeText(ShareListActivity.this, "Your list was shared successfully!", Toast.LENGTH_LONG).show();
             onBackPressed();//go back to the MainListActivity
           } else { 
-            Toast.makeText(ShareListActivity.this, "Sorry, but the list was not shared. Please try again.", Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareListActivity.this, "Sorry, but the list was not shared. Please try again!", Toast.LENGTH_LONG).show();
           } 
         } catch(SendFailedException e) { 
           Toast.makeText(ShareListActivity.this, "There was a poblem sharing the list: " + e.getMessage(), Toast.LENGTH_LONG).show();
         } 
         catch(Exception e){
-        	Toast.makeText(ShareListActivity.this, "The list could not be shared, sorry buddy!", Toast.LENGTH_LONG).show();
-        	Log.e("ShareListActivity", "Could not send email", e);
+        	Toast.makeText(ShareListActivity.this, "The list could not be shared, sorry buddy!" + e.getMessage(), Toast.LENGTH_LONG).show();
+        	//Log.e("ShareListActivity", "Could not send email", e);
         }
       } 
 }
