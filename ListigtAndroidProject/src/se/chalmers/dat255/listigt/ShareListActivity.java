@@ -37,9 +37,9 @@ public class ShareListActivity extends Activity{
 		message = (EditText) findViewById(R.id.messageField);
 		sendButton = (Button) findViewById(R.id.sendButton);
 		//send button per default enabled
-		sendButton.setEnabled(true);	
-		currentRowId = null;
+		sendButton.setEnabled(true);
 		extras = getIntent().getExtras();
+		currentRowId = extras.getLong(ListsDbAdapter.KEY_ROWID);
 	}
 	
 	/**
@@ -66,8 +66,9 @@ public class ShareListActivity extends Activity{
         m.setTo(emailArr); 
         m.setFrom("listigtapp@gmail.com");//has to be an e-mail adress 
         m.setSubject("List from Listigt: " + subjectString);
-        m.setBody("Message from the creator: " + messageString);
+        m.setBody("Message from the creator: " + messageString + getList(currentRowId));
         System.out.println("TO ARR: " + Arrays.toString(emailArr) + " // emailString: " + emailString);
+        System.out.println(getList(currentRowId));
         try {  
    
           if(m.send()) { 
@@ -80,6 +81,14 @@ public class ShareListActivity extends Activity{
         	Toast.makeText(ShareListActivity.this, "The list could not be shared: " + e.getMessage(), Toast.LENGTH_LONG).show();
         	//Log.e("ShareListActivity", "Could not send email", e);
         }
-      } 
+      }
+    
+    /**
+     * Get the list title and all its items from the database
+     */
+    private String getList(long listid){
+    	String theList = "LIST-ID: " + listid;
+    	return theList;
+    }
 }
 	
