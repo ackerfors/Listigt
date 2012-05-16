@@ -59,9 +59,10 @@ public abstract class AbstractListigtDbAdapter {
      * Closes the InnerSQLOpenHelper and database connection.
      */
     public void close() {
-    	innerDbHelpder.close();
+    	if (innerDbHelpder != null) {
+    		innerDbHelpder.close();
+    	}
     }
-	
     
     /**
      * The inner class of the database adapter. This will extend SQLiteOpenHelper and 
@@ -70,8 +71,6 @@ public abstract class AbstractListigtDbAdapter {
      * @author Ackerfors Crew
      */
 	private static class InnerSQLOpenHelper extends SQLiteOpenHelper {
-		
-		
 		public InnerSQLOpenHelper (Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -94,4 +93,4 @@ public abstract class AbstractListigtDbAdapter {
             onCreate(db);
 		}	
 	} //End inner class
-} //End package
+} //End outer class

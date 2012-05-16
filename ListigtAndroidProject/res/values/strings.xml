@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Listigt v0.3.1</string>
-    <string name="no_content">No Content So Far</string>
+    <string name="app_name">Listigt v0.3.2</string>
+    <string name="no_lists">No lists so far. Click the button to add one!</string>
+    <string name="no_items">No items so far. Click the button to add one!</string>
     <string name="menu_insert_list">Add List</string>
     <string name="menu_insert_item">Add Item</string>
     <string name="listEditCreateTitle">Edit or create list</string>
@@ -12,5 +13,14 @@
     <string name="description">Description</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="status">Status</string>
+    <string name="book">Book</string>
+    <string name="email">E-mail</string>
+    <string name="send">Send</string>
+    <string name="share">Share list</string>
+    <string name="subject">Subject</string>
+    <string name="message">Message</string>
+    <string name="feedbackemail">Separate addresses by commas</string>
+    <string name="optional">Optional</string>
     
 </resources>

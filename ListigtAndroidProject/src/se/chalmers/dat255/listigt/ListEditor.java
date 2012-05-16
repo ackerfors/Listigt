@@ -21,7 +21,6 @@ import android.widget.EditText;
 public class ListEditor extends Activity implements TextWatcher {
 	EditText editableListTitle; //creates an editable textbox
 	Long currentRowId;
-	AlertDialog.Builder builder;
 	Button confirmButton;
 	
 	@Override
@@ -38,7 +37,6 @@ public class ListEditor extends Activity implements TextWatcher {
 		confirmButton = (Button) findViewById(R.id.confirmButton);
 		//confirm button per default disabled
 		confirmButton.setEnabled(false);
-		builder = new AlertDialog.Builder(this);
 		
 		currentRowId = null;
 		Bundle extras = getIntent().getExtras();
@@ -75,26 +73,7 @@ public class ListEditor extends Activity implements TextWatcher {
 		});
 	}
 	
-	/**
-	 * Runs if the user has written too many letters in the title.
-	 * NOT YET USED.
-	 */
-	private void showDialog(){
-		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			// Setting Dialog Title
-			alertDialog.setTitle("Buddy, that title is way too long!");
-			
-			// Setting OK Button
-			alertDialog.setButton("OK, got it!", new DialogInterface.OnClickListener() {
-			        public void onClick(DialogInterface dialog, int which) {
-			        // Write your code here to execute after dialog closed
-			        dialog.dismiss();
-			        }
-			});
-			
-			// Showing Alert Message
-			alertDialog.show();
-	}
+	
 	
 	/**
      * When the back-key is pressed we simply return to the previous activity
