@@ -20,5 +20,7 @@
     <string name="share">Share list</string>
     <string name="subject">Subject</string>
     <string name="message">Message</string>
+    <string name="feedbackemail">Separate addresses w/ commas</string>
+    <string name="optional">Optional</string>
     
 </resources>
