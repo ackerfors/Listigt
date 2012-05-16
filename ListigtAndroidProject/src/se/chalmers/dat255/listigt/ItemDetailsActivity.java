@@ -134,7 +134,9 @@ public class ItemDetailsActivity extends Activity {
      * When the Delete-button is clicked, this method runs (set in item_details.xml)
      */
     public void deleteItem(View v){
+    	itemDbAdapter.open();
     	itemDbAdapter.deleteItem(currentRowId);
+    	itemDbAdapter.close();
     	onBackPressed();//Brings us back to where we came from
     }
     /**
@@ -154,7 +156,9 @@ public class ItemDetailsActivity extends Activity {
     	    if (returnedRowId != null) {
     	        String updateTitle = extras.getString(ItemsDbAdapter.KEY_TITLE);
     	        String updateDescription = extras.getString(ItemsDbAdapter.KEY_DESCRIPTION);
+    	        itemDbAdapter.open();
     	        itemDbAdapter.updateItem(returnedRowId, updateTitle, updateDescription);
+    	        itemDbAdapter.close();
     	    }
     	    fillData();
     	    break;
