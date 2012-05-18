@@ -20,7 +20,7 @@
 			android:layout_height="wrap_content" 
 			android:layout_weight="1"
 			android:singleLine="true"
-			android:maxLength="30"/>
+			android:maxLength="20"/>
 	</LinearLayout>
 	
 	<TextView style="@style/InfoText"

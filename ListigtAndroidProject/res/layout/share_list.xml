@@ -16,53 +16,54 @@
 			<TextView style="@style/InfoText"
 			    android:layout_width="wrap_content"
 				android:layout_height="wrap_content" 
-				android:text="@string/title" />
-			<TextView style="@style/ItemTitleDetails"
-			    android:id="@+id/itemTitleField" 
+				android:text="@string/email" />
+			<EditText
+			    android:id="@+id/emailField" 
 			  	android:layout_width="fill_parent"
-				android:layout_height="wrap_content" />
+				android:layout_height="wrap_content" 
+				android:layout_weight="1"
+				android:hint="@string/feedbackemail"  
+    			android:inputType="textEmailAddress" />
 		</LinearLayout>
 		<LinearLayout
 		    android:orientation="horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content">
+	
+			<TextView style="@style/InfoText"
+			    android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="@string/subject" />
+			<EditText
+			    android:id="@+id/subjectField" 
+			  	android:layout_width="fill_parent"
+				android:layout_height="wrap_content" 
+				android:layout_weight="1"
+				android:hint="@string/optional"/>
 		</LinearLayout>
 			
 		<TextView style="@style/InfoText"
 		    android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
-			android:text="@string/description" />
-		<TextView style="@style/ItemDescDetails"
-		    android:id="@+id/itemDescField"
-		    android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_weight="1.0" />
+			android:text="@string/message" />
+		<EditText
+		    android:id="@+id/messageField" 
+		  	android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:layout_weight="1"
+			android:hint="@string/optional"/>
 	
 		<LinearLayout
 		    android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="center_vertical">
 	        <Button
-	            android:id="@+id/editButton"
+	            android:id="@+id/sendButton"
 	            android:layout_width="0dip"
 	            android:layout_weight="1.0"
 	            android:layout_height="wrap_content" 
-	            android:text="@string/edit"
-	            android:onClick="editItem" />
-	        <Button
-	            android:id="@+id/bookButton"
-	            android:layout_width="0dip"
-	            android:layout_weight="1.0"
-	            android:layout_height="wrap_content" 
-	            android:text="@string/book"
-	            android:onClick="bookItem" />
-	        <Button
-	            android:id="@+id/deleteButton"
-	            android:layout_width="0dip"
-	            android:layout_weight="1.0"
-	            android:layout_height="wrap_content" 
-	            android:text="@string/delete"
-	            android:onClick="deleteItem" />
+	            android:text="@string/send"
+	            android:onClick="sendList" />
 		</LinearLayout>
 	</LinearLayout>	
 </ScrollView>

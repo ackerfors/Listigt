@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -36,7 +37,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * the activity of populating the initial screen of this application
  * with a list of lists.
  * 
- * @author Patrik Ackerfors
+ * @author Ackerfors Crew
  *
  */
 public class MainListActivity extends ListActivity {
@@ -44,10 +45,12 @@ public class MainListActivity extends ListActivity {
     private static final int INSERT_LIST_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
     private static final int EDIT_ID = Menu.FIRST + 2;
+    private static final int SHARE_ID = Menu.FIRST + 3;
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
-	private static final int ACTIVITY_GOTOITEMS = 2;
-
+	private static final int ACTIVITY_SHARE = 2;
+	private static final int ACTIVITY_GOTOITEMS = 3;
+	private Button addListButton;
 	private Cursor listCursor;
 	
 	
@@ -61,8 +64,9 @@ public class MainListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_list); //Sets the layout to the one we specified in res/layout
         listsDbAdapter = new ListsDbAdapter(this);//Construct the database-adapter
-        listsDbAdapter.open();//open or create the database
         registerForContextMenu(getListView());
+        addListButton = (Button) findViewById(R.id.addList);
+		addListButton.setEnabled(true);
         fillData();//calls internal method to fetch data from DB and load it onto our ListView
     }
     
@@ -86,6 +90,7 @@ public class MainListActivity extends ListActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, DELETE_ID, 0, R.string.delete);
         menu.add(0, EDIT_ID, 0, R.string.edit);
+        menu.add(0, SHARE_ID, 0, R.string.share);
     }
 
     @Override
@@ -103,6 +108,7 @@ public class MainListActivity extends ListActivity {
      * load it onto our ListView.
      */
     private void fillData(){
+    	listsDbAdapter.open();
         listCursor = listsDbAdapter.fetchAllLists();
         startManagingCursor(listCursor);
 
@@ -113,6 +119,12 @@ public class MainListActivity extends ListActivity {
         SimpleCursorAdapter lists =
             new SimpleCursorAdapter(this, R.layout.list_row, listCursor, from, to);
         setListAdapter(lists);
+        listsDbAdapter.close();
+    }
+    
+    /** Called when the "Add list"-button is pressed (from an empty view with no lists) */
+    public void addListButtonPressed(View v){
+    	createList();
     }
     
     /** Called to create a new list */
@@ -129,8 +141,12 @@ public class MainListActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+    	Cursor c = listCursor;
+    	c.moveToPosition(position);
         Intent i = new Intent(this, MainItemActivity.class);
-        i.putExtra(ItemsDbAdapter.KEY_ROWID, id);
+        i.putExtra(ListsDbAdapter.KEY_ROWID, id);
+        i.putExtra(ListsDbAdapter.KEY_TITLE, c.getString(
+    	        c.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)) );
         startActivityForResult(i, ACTIVITY_GOTOITEMS);
     }
     
@@ -143,6 +159,7 @@ public class MainListActivity extends ListActivity {
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+    	listsDbAdapter.open();
         switch(item.getItemId()) {
         case DELETE_ID:
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -159,7 +176,18 @@ public class MainListActivity extends ListActivity {
         	        c.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)));
         	startActivityForResult(i, ACTIVITY_EDIT);
             return true;
+        case SHARE_ID:
+        	AdapterContextMenuInfo info3 = (AdapterContextMenuInfo) item.getMenuInfo();
+        	Cursor c2 = listCursor;
+        	c2.moveToPosition(info3.position);
+        	Intent i2 = new Intent(this, ShareListActivity.class);
+        	i2.putExtra(ListsDbAdapter.KEY_ROWID, info3.id);
+        	i2.putExtra(ListsDbAdapter.KEY_TITLE, c2.getString(
+        	        c2.getColumnIndexOrThrow(ListsDbAdapter.KEY_TITLE)));
+        	startActivityForResult(i2, ACTIVITY_SHARE);
+            return true;
         }
+        listsDbAdapter.close();
         return super.onContextItemSelected(item);
     }
     
@@ -174,6 +202,7 @@ public class MainListActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	super.onActivityResult(requestCode, resultCode, intent);
     	Bundle extras = intent.getExtras();//take care of the extras the activity may have sent back to us
+    	listsDbAdapter.open();
     	switch(requestCode) {
     	case ACTIVITY_CREATE:
     	    if(extras != null){
@@ -190,9 +219,13 @@ public class MainListActivity extends ListActivity {
     	    }
     	    fillData();
     	    break;
+    	case ACTIVITY_SHARE:
+    		fillData();
+    		break;
     	case ACTIVITY_GOTOITEMS:
     		fillData();
     		break;
     	}
+    	listsDbAdapter.close();
     }
 }

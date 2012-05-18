@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="ListigtTheme" parent="android:Theme.NoTitleBar">
+  <style name="ListigtTheme">
     <item name="android:textSize">18sp</item>
     <item name="android:listViewStyle">@style/MyListView</item>
     <item name="android:textViewStyle">@style/MyTextView</item>
+    <item name="android:windowTitleSize">35dip</item>
   </style>
   
   <style name="ListigtTheme.Items">
