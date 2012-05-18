@@ -5,6 +5,7 @@
 Changes in this version:
     * ItemDetails-activity implemented
 	* Layout modified
+
     
 Known errors:
 	* Incorrect items are displayed when entering a list
