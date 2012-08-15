@@ -114,6 +114,7 @@ public class MainListActivity extends ListActivity {
 
         String[] from = new String[] { ListsDbAdapter.KEY_TITLE };
         int[] to = new int[] { R.id.listRowTitle };
+        //get number of items in list from DB and bind to R.id.listCounter
         
         // Creates an array adapter and set it to display using our row
         SimpleCursorAdapter lists =
