@@ -9,6 +9,9 @@
 <TableLayout android:id="@+id/TableLayout01" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:stretchColumns="0">
  
   <TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <ImageView android:src="@android:drawable/ic_menu_sort_by_size"
+		android:layout_weight="0" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_gravity="left"/>
     <TextView android:id="@+id/itemRowTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" />
  	<CheckBox android:id="@+id/itemCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content" />
   </TableRow>
