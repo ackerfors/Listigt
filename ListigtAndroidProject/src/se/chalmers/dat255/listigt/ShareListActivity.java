@@ -2,7 +2,7 @@ package se.chalmers.dat255.listigt;
 
 import java.util.Arrays;
 import java.util.List;
-import jon.simon.mail.Mail;
+//import jon.simon.mail.Mail;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
